@@ -1,13 +1,15 @@
 import React from 'react';
-import { ConnectedRouter } from "connected-react-router";
+
+import {BrowserRouter, Route} from "react-router-dom";
+import PostList from "../pages/PostList"
 
 function App() {
-  const dispatch = useDispatch();
 
   return (
     <React.Fragment>
-      <ConnectedRouter>
-      </ConnectedRouter>
+      <BrowserRouter>
+        <Route path="/" exact component={PostList}/>
+      </BrowserRouter>
     </React.Fragment>
   );
 }
