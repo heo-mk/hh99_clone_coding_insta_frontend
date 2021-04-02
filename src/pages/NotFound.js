@@ -15,7 +15,13 @@ const NotFound = (props) => {
 export default NotFound;
 
 const Outter = styled.div`
-  margin-top: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  margin-top: -100px;
+  margin-left: --100px;
 `;
 
 const NonExist = styled.h2`
