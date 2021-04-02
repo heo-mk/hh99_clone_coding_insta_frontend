@@ -10,6 +10,8 @@ import Header from "../components/Header"
 import styled from "styled-components"
 
 
+
+
 function App() {
 
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="/upload" exact component={PostWrite}/>
       </ConnectedRouter>
     </ReactContainer>
+
   );
 }
 
