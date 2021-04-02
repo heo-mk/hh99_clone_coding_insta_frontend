@@ -10,4 +10,6 @@ const Post = (props) => {
       <div>likes</div>
     </div>
   )
-}
+};
+
+export default Post;
