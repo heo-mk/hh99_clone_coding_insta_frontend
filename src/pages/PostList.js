@@ -4,7 +4,6 @@ const PostList = () => {
 
   return (
     <React.Fragment>
-      postList
     </React.Fragment>
   );
 
