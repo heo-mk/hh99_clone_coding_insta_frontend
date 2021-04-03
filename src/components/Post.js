@@ -26,7 +26,7 @@ const Post = (props) => {
             <PostHeader>
               <ProfileCircle src={Sample_img}/> 
               <HeaderInfo>
-                <PostAuthor/>{user_id}<PostAuthor/>
+                <PostAuthor/>{props.user_info.user_id}<PostAuthor/>
                 <MoreHorizIcon onClick height="14px" width="14px"/>
               </HeaderInfo>
             </PostHeader>
@@ -43,7 +43,7 @@ export default Post;
 Post.defaultProps = {
   id: null,
   user_info: {
-    user_id: "mkmk",
+    user_id: "mkmkh",
     user_name: "",
     user_profile: "",
   },
