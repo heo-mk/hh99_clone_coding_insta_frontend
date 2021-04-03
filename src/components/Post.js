@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
 
@@ -23,7 +24,7 @@ const Post = (props) => {
         <PostInner>
           <PostBox >
             <PostHeader>
-              <ProfileCircle src={profile_image_url}/> 
+              <ProfileCircle src={Sample_img}/> 
               <HeaderInfo>
                 <PostAuthor/>{user_id}<PostAuthor/>
                 <MoreHorizIcon onClick height="14px" width="14px"/>
@@ -90,9 +91,10 @@ const PostHeader = styled.div`
 const ProfileCircle = styled.div`
   height: 32px;
   width: 32px;
-  /* position: absolute; */
   margin: 14px;
-  display: block;
+  border-radius: 50%;
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
 `;
 
 const HeaderInfo = styled.div`
@@ -101,12 +103,14 @@ const HeaderInfo = styled.div`
   width: 536px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const PostAuthor = styled.div`
   height: auto;
   width: auto;
   font-size: 14px;
+
 `;
 
 const DotBtn = styled.div`
