@@ -20,21 +20,16 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
-      <PostMainContainer>
-        <PostInner>
-          <PostBox >
-            <PostHeader>
-              <ProfileCircle src={props.profile_image_url}/>   
-              <HeaderInfo>
-                <PostAuthor>{props.user_info.user_id}</PostAuthor>
-                {/* <PostAuthor>{props.user_info.user_id}<PostAuthor/> */}
-                <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
-              </HeaderInfo>
-            </PostHeader>
-          </PostBox>
-        </PostInner>
-      </PostMainContainer>
-
+      <PostBox >
+        <PostHeader>
+          <ProfileCircle src={props.profile_image_url}/>   
+          <HeaderInfo>
+            <PostAuthor>{props.user_info.user_id}</PostAuthor>
+            {/* <PostAuthor>{props.user_info.user_id}<PostAuthor/> */}
+            <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
+          </HeaderInfo>
+        </PostHeader>
+      </PostBox>
     </React.Fragment>
   )
 };
@@ -54,18 +49,6 @@ Post.defaultProps = {
   insert_dt: "2021-04-02 14:02:02", 
   is_me: false,
 }
-
-const PostMainContainer = styled.div`
-  padding-top: 130px;
-  display: flex;
-  justify-content: center;
-`;
-
-const PostInner = styled.div`
-  width: 935px;
-  /* height: 500px; */
-  /* background: red;  */
-`;
 
 const PostBox = styled.div`
   /* justify-content: center; */
@@ -97,7 +80,7 @@ const ProfileCircle = styled.div`
   background-image: url("${(props) => props.src}");
   background-size: cover;
   cursor: pointer;
-`;
+`;  
 
 const HeaderInfo = styled.div`
   height: 40px;
