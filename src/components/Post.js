@@ -24,10 +24,11 @@ const Post = (props) => {
         <PostInner>
           <PostBox >
             <PostHeader>
-              <ProfileCircle src={Sample_img}/> 
+              <ProfileCircle src={props.profile_image_url}/>   
               <HeaderInfo>
-                <PostAuthor/>{props.user_info.user_id}<PostAuthor/>
-                <MoreHorizIcon onClick height="14px" width="14px"/>
+                <PostAuthor>{props.user_info.user_id}</PostAuthor>
+                {/* <PostAuthor>{props.user_info.user_id}<PostAuthor/> */}
+                <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
               </HeaderInfo>
             </PostHeader>
           </PostBox>
@@ -95,11 +96,12 @@ const ProfileCircle = styled.div`
   border-radius: 50%;
   background-image: url("${(props) => props.src}");
   background-size: cover;
+  cursor: pointer;
 `;
 
 const HeaderInfo = styled.div`
   height: 40px;
-  margin: 0 0 0 14px;
+  margin: 0 0 0 0;
   width: 536px;
   display: flex;
   justify-content: space-between;
@@ -110,7 +112,8 @@ const PostAuthor = styled.div`
   height: auto;
   width: auto;
   font-size: 14px;
-
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 const DotBtn = styled.div`
