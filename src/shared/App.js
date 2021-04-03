@@ -33,8 +33,8 @@ function App() {
 const ReactContainer = styled.div`
   background-color: #FAFAFA;
   width:100vw;
-  height: 100vh;
-
+  height:100vh;
+  overflow-x: hidden;
 `
 
 export default App;
