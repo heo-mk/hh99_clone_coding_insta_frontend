@@ -11,7 +11,9 @@ const Header = () => {
     <React.Fragment>
       <HeaderContainer>
         <HeaderInnerContainer>
-          <TitleImg src={ImgTitle} />
+          <TitleImg src={ImgTitle} onClick={() => {
+            history.push('/')
+          }} />
           <HeaderIcons>
             <HomeIcon fontSize={'default'} style={{cursor: 'pointer'}} />
             <CreateIcon fontSize={'default'} style={{cursor: 'pointer'}} onClick={() => {
