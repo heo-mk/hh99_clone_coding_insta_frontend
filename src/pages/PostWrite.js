@@ -21,12 +21,12 @@ const PostWrite = (props) => {
                 <WriteProfile src={props.profile_image_url} />
                 <PostAuthor>{props.user_name}</PostAuthor>
               </WriteHeaderLeft>
-              <MoreHorizIcon height="14px" width="14px"/>
+              <MoreHorizIcon height="14px" width="14px" />
             </WriteHeader>
             <WriteContent>
-             <WriteUpload>
-              <Upload/>
-             </WriteUpload>
+              <WriteUpload>
+                <Upload />
+              </WriteUpload>
               <WriteImg src={props.image_url} />
               <TextField
                 id="outlined-multiline-static"
@@ -50,7 +50,7 @@ const PostWrite = (props) => {
 PostWrite.defaultProps = {
   user_name: 'BradLee',
   image_url: "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/22QT/image/p-RX98d_34y9ElK_Qfwz8OfHhxM.jpg",
-  profile_image_url : "https://cdn.crowdpic.net/detail-thumb/thumb_d_382A8A747FFDF073E20C13398D110DE7.jpg"
+  profile_image_url: "https://cdn.crowdpic.net/detail-thumb/thumb_d_382A8A747FFDF073E20C13398D110DE7.jpg"
 }
 
 const WriteMainContainer = styled.div`
