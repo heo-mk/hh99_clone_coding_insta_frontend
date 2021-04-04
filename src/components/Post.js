@@ -2,9 +2,12 @@ import React from "react";
 
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 
 import Sample_img from '../shared/dragon.jpg';
 
@@ -23,7 +26,7 @@ const Post = (props) => {
   // const idx = props.like_id.findIndex((l) => l === user_info.uid);
   // const is_like = idx !== -1 ? true : false;
 
-  return (
+  return ( 
     <React.Fragment>
         <PostBox >
             <PostHeader>
@@ -34,10 +37,37 @@ const Post = (props) => {
                 </HeaderInfo>
             </PostHeader>
             <PostBody>
-              <PostImage src={props.post_image_url}/>
+                <PostImage src={props.post_image_url}/>
             </PostBody>
-            {/* <PostBottom>
-            </PostBottom> */}
+            <BottomIcons>
+                <ThreeIcons>
+                  <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
+                  <CloudQueueIcon padding-left="16px" padding-right="16px" cursor="pointer"/>
+                  <SendIcon padding-left="16px" cursor="pointer"/>
+                </ThreeIcons>
+                <BookmarkBorderIcon height="24px" width="24px" cursor="pointer"/>
+            </BottomIcons>
+            <BottomLike>좋아요 {props.like_cnt}개</BottomLike>
+            <BottomAuthorCommentBox>
+                <AuthorCommentBox>
+                    <Author>{props.user_info.user_id}</Author>
+                    <Comment>{props.content}</Comment>
+                </AuthorCommentBox>
+            </BottomAuthorCommentBox>
+            <ReplyBox>
+                <Replys>
+                    <ReplyWriter>{props.replywrtier_id}</ReplyWriter>
+                    <Reply>{props.reply}</Reply>
+                </Replys>
+                <Likebox>
+                    <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
+                </Likebox>
+            </ReplyBox>
+            <InsertTime>{props.insert_dt}</InsertTime>
+            <CommentInputBox>
+                <CommentInput text="text" placeholder="댓글달기..."></CommentInput>
+                <UploadBtn>게시</UploadBtn>
+            </CommentInputBox>
         </PostBox>
     </React.Fragment>
   )
@@ -54,8 +84,10 @@ Post.defaultProps = {
   },
   profile_image_url: "https://pbs.twimg.com/media/DYdKfivVwAAe_td.jpg",
   post_image_url: "https://static.hubzum.zumst.com/2017/10/11/13/9b4064dd95be428a964e95af18cc0a0b.jpg",
-  contents: "",
-  comment_cnt: 10,
+  content: "클론코딩 9조 대박!",
+  like_cnt: 10,
+  replywrtier_id: "hh99",
+  reply: "멋있네요",
   insert_dt: "2021-04-02 14:02:02", 
   is_me: false,
 }
@@ -121,23 +153,119 @@ const PostImage = styled.img`
   cursor: pointer;
 `;
 
-
-const LikeBox = styled.div`
+const BottomIcons = styled.div`
   height: 40px;
-
-  margin: -34px 0px 0px 0px;
+  margin: 4px 0px 0px 0px;
   padding: 0px 16px;
-  diplay: flex;
-`;
-
-const LikeIcons = styled.div`
-  height: 24px;
-  width: 24px;
-`;
-
-const Likecnt = styled.div`
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+`;
+
+const ThreeIcons = styled.div`
+  height: 24px;
+  width: 104px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const BottomLike = styled.div`
+  height: 20px;
+  padding: 0px 0px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+`;
+
+const BottomAuthorCommentBox = styled.div`
+  padding: 0px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const AuthorCommentBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Author = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 10px;
+`;
+
+const Comment = styled.div`
+  font-size: 14px;
+`;
+
+const ReplyBox = styled.div`
+  padding: 5px 16px 0px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Replys = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ReplyWriter = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  padding-right: 10px;
+`;
+
+const Reply = styled.div`
+  font-size: 14px;
+`;
+
+const Likebox = styled.div`
+  height: 12px;
+  width: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-size: cover;
+`;
+
+const InsertTime = styled.div`
+  font-size: 10px;
+  color: #999;
+  border-bottom: 1px solid #8E8E8E;
+  padding: 16px;
+`;
+
+const CommentInputBox = styled.div`
+  height: 56px;
+  margin-top: 4px;
+  padding: 0px 16px;
+  justify-content: space-between;
+  align-items: center;
+  background-size: cover;
+  position: relative;
+`;
+
+const CommentInput = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+`;
+
+const UploadBtn = styled.div`
+  font-size: 14px;
+  color: #3897F0;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  /* pointer-events: none; */
+  opacity: 0.6
 `;
