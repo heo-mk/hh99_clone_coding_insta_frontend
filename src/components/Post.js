@@ -1,8 +1,11 @@
 import React from "react";
+
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import SendIcon from '@material-ui/icons/Send';
+
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
@@ -30,17 +33,11 @@ const Post = (props) => {
                     <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
                 </HeaderInfo>
             </PostHeader>
-            <PostImage>
-                <ImgSection src={props.post_image_url}/>
-            </PostImage>
-            <PostBottom>
-                <LikeBox>
-                    <LikeIcons>
-
-                    </LikeIcons>
-                <Save/>
-              </LikeBox> 
-            </PostBottom>
+            <PostBody>
+              <PostImage src={props.post_image_url}/>
+            </PostBody>
+            {/* <PostBottom>
+            </PostBottom> */}
         </PostBox>
     </React.Fragment>
   )
@@ -112,21 +109,18 @@ const PostAuthor = styled.div`
   cursor: pointer;
 `;
 
+const PostBody = styled.div`
+  overflow: hidden;
+`;
 
 const PostImage = styled.img`
-  overflow: hidden;
-  /* width: 100%;
-  heigth: 100%;
-  background-image: url("${(props) => props.src}");  
+  /* overflow: hidden; */
+  width: 100%;
+  height: auto;  
   background-size: cover;
-  cursor: pointer; */
+  cursor: pointer;
 `;
 
-const ImgSection = styled.img`
-  width: 614px;
-  /* background-image: url("${(props) => props.src}");   */
-  background-size: cover;
-`;
 
 const LikeBox = styled.div`
   height: 40px;
