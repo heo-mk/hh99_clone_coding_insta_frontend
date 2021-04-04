@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
@@ -20,16 +22,26 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
-      <PostBox >
-        <PostHeader>
-          <ProfileCircle src={props.profile_image_url}/>   
-          <HeaderInfo>
-            <PostAuthor>{props.user_info.user_id}</PostAuthor>
-            {/* <PostAuthor>{props.user_info.user_id}<PostAuthor/> */}
-            <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
-          </HeaderInfo>
-        </PostHeader>
-      </PostBox>
+        <PostBox >
+            <PostHeader>
+                <ProfileCircle src={props.profile_image_url}/>   
+                <HeaderInfo>
+                    <PostAuthor>{props.user_info.user_id}</PostAuthor>
+                    <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
+                </HeaderInfo>
+            </PostHeader>
+            <PostImage>
+                <ImgSection src={props.post_image_url}/>
+            </PostImage>
+            <PostBottom>
+                <LikeBox>
+                    <LikeIcons>
+
+                    </LikeIcons>
+                <Save/>
+              </LikeBox> 
+            </PostBottom>
+        </PostBox>
     </React.Fragment>
   )
 };
@@ -44,6 +56,7 @@ Post.defaultProps = {
     user_profile: "",
   },
   profile_image_url: "https://pbs.twimg.com/media/DYdKfivVwAAe_td.jpg",
+  post_image_url: "https://static.hubzum.zumst.com/2017/10/11/13/9b4064dd95be428a964e95af18cc0a0b.jpg",
   contents: "",
   comment_cnt: 10,
   insert_dt: "2021-04-02 14:02:02", 
@@ -53,7 +66,7 @@ Post.defaultProps = {
 const PostBox = styled.div`
   /* justify-content: center; */
   width: 614px;
-  height: 500px;
+  /* height: 500px; */
   border: 1px solid #DBDBDB;
   border-radius: 3px;
   box-sizing: border-box;
@@ -75,9 +88,9 @@ const PostHeader = styled.div`
 const ProfileCircle = styled.div`
   height: 32px;
   width: 32px;
-  margin: 14px;
+  margin: 0px 14px 0px 0px;
   border-radius: 50%;
-  background-image: url("${(props) => props.src}");
+  background-image: url("${(props) => props.src}");  
   background-size: cover;
   cursor: pointer;
 `;  
@@ -99,15 +112,38 @@ const PostAuthor = styled.div`
   cursor: pointer;
 `;
 
-const DotBtn = styled.div`
-  height: 14px;
-  width: 14px;
+
+const PostImage = styled.img`
+  overflow: hidden;
+  /* width: 100%;
+  heigth: 100%;
+  background-image: url("${(props) => props.src}");  
+  background-size: cover;
+  cursor: pointer; */
 `;
 
+const ImgSection = styled.img`
+  width: 614px;
+  /* background-image: url("${(props) => props.src}");   */
+  background-size: cover;
+`;
 
-  // & .img{
-  //   width: 32px;
-  //   height: 32px;
-  //   border-radius: 50%;
-  //   overflow: hidden;
-  //   margin-right: 10px;
+const LikeBox = styled.div`
+  height: 40px;
+
+  margin: -34px 0px 0px 0px;
+  padding: 0px 16px;
+  diplay: flex;
+`;
+
+const LikeIcons = styled.div`
+  height: 24px;
+  width: 24px;
+`;
+
+const Likecnt = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 10px 20px;
+`;
