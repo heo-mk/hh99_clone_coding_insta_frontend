@@ -60,13 +60,17 @@ const Post = (props) => {
                     <Reply>{props.reply}</Reply>
                 </Replys>
                 <Likebox>
-                    <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
+                    <FavoriteBorderIcon cursor="pointer"/>
                 </Likebox>
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
             <CommentInputBox>
-                <CommentInput text="text" placeholder="댓글달기..."></CommentInput>
-                <UploadBtn>게시</UploadBtn>
+                <div>
+                    <CommentInput text="text" placeholder="댓글달기..."></CommentInput>
+                </div>
+                <div>
+                    <UploadBtn>게시</UploadBtn>
+                </div>
             </CommentInputBox>
         </PostBox>
     </React.Fragment>
@@ -227,11 +231,9 @@ const Reply = styled.div`
 `;
 
 const Likebox = styled.div`
+  padding: 0px 16px 0px 0px;
   height: 12px;
   width: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-size: cover;
 `;
 
@@ -246,10 +248,11 @@ const CommentInputBox = styled.div`
   height: 56px;
   margin-top: 4px;
   padding: 0px 16px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  background-size: cover;
-  position: relative;
+  /* background-size: cover;
+  position: relative; */
 `;
 
 const CommentInput = styled.input`
@@ -261,11 +264,11 @@ const CommentInput = styled.input`
 const UploadBtn = styled.div`
   font-size: 14px;
   color: #3897F0;
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* position: absolute; */
+  /* right: 16px; */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
   cursor: pointer;
   /* pointer-events: none; */
-  opacity: 0.6
+  opacity: 1
 `;
