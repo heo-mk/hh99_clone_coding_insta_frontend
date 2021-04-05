@@ -15,6 +15,9 @@ const LOADING = "LOADING";
 
 const setPost = createAction(SET_POST, (post_list, paging) => ({post_list,  paging}))
 const addPost = createAction(ADD_POST, (post) => ({ post }));
+const editPost = createAction(EDIT_POST, (post) => ({post}));
+const deletePost = createAction(DELETE_POST, (post) => ({post}));
+const loading = createAction(LOADING, (post) => ({post}));
 
 const initialState = {
   list: [],
@@ -23,11 +26,10 @@ const initialState = {
 }
 
 const initialPost = {
-  like_cnt: 0,
-  like_id: [],
-  image_url: "",
   contents: "",
-  insert_dt: moment().format("YYYY-MM-DD HH:mm:ss")
+  userId: "",
+  insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+  img: "",
 }
 
 const addPostAX = (post) => {
@@ -53,6 +55,31 @@ const addPostAX = (post) => {
   }
 }
 
+const getPostAX = () => {
+  return function (dispatch, getState){
+    let _post = {
+      contents: post.contents,
+      insertDt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      userId: "",
+      img: post.image_url,
+    }
+    axios.get("http://15.164.217.16/api/contents", {
+      ..._post
+    })
+    .then((doc) => {
+      console.log(doc)
+      let post_list = {..._post, id: doc.data.id}
+      dispatch(addPost(post_list))
+      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+      history.replace("/")
+    }).catch((err) => {
+      window.alert("게시물 작성에 문제가 있어요!")
+    })
+  }
+}
+
+
+
 export default handleActions(
   {
     [ADD_POST]: (state, action) => produce(state, (draft) => {
@@ -64,7 +91,8 @@ export default handleActions(
 
 const actionCreators = {
   addPost,
-  addPostAX,
+  addPostAX
+  getPostAX,
 }
 
 export {actionCreators}
