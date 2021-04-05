@@ -30,11 +30,13 @@ const Post = (props) => {
     <React.Fragment>
         <PostBox >
             <PostHeader>
-                <ProfileCircle src={props.profile_image_url}/>   
-                <HeaderInfo>
+                <PostHeaderLeft>
+                    <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
-                    <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
-                </HeaderInfo>
+                </PostHeaderLeft>
+                <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
+                {/* <HeaderInfo>
+                </HeaderInfo> */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url}/>
@@ -126,12 +128,18 @@ const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 16px;
 
   @media (max-width: 1000){
     width: 100%;
     heigth: 100%;
   }
+`;
+
+const PostHeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  /* padding-left: 16px; */
 `;
 
 const ProfileCircle = styled.div`
