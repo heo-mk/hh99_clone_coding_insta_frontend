@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 
+import { actionCreators as userActions } from "../redux/modules/user"
 import { actionCreators as imageActions } from "../redux/modules/image"
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [pwd, setPwd] = useState('')
   const [pwdConfirm, setConfirmedPwd] = useState('') 
   const [user_name, setName] = useState('')
+  const ok_submit = id && pwd && pwdConfirm && user_name ? true : false
 
   React.useEffect(() => {
     dispatch(imageActions.profilePreview("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"))
@@ -33,6 +35,7 @@ const SignUp = () => {
     setConfirmedPwd(e.target.value)
   }
 
+
   const signup = () => {
     if (!id || !pwd || !user_name || !pwdConfirm) {
       window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
@@ -47,8 +50,8 @@ const SignUp = () => {
       return;
     }
     
-    // dispatch(userActions.signupFB(id, pwd, user_name))
-    // close()
+    // dispatch(userActions.signupAX(id, user_name, pwd, image_url))
+
   }
 
   const selectFile = (e) => {
@@ -84,7 +87,13 @@ const SignUp = () => {
         <SignupInput placeholder="User Name" onChange={submitName} />
         <SignupInput placeholder="Password" onChange={submitPwd} type="password" />
         <SignupInput placeholder="Confirm Password" onChange={submitConfirmedPwd} type="password" />
-        <SignupBtn onClick={signup}>Sign up</SignupBtn>
+        {ok_submit ? (
+          <SignupBtn onClick={signup}>Sign up</SignupBtn>
+        ):(
+          <SignupBtn style={{opacity: "0.5"}}>Sign up</SignupBtn>
+        )}
+        
+        
       </SignupContainer>
     </React.Fragment>
   )
@@ -137,7 +146,7 @@ const ProfileImg = styled.img`
 const SignupBtn = styled.button`
   width: 260px;
   padding: 7px 0px 7px 8px;
-  border-radius: 2px;
+  border-radius: 4px;
   font-size: 15px;
   font-weight: 600;
   margin-top: 10px;
@@ -147,5 +156,6 @@ const SignupBtn = styled.button`
   background-color: #0095F6;
   color: white;
 `
+
 
 export default SignUp

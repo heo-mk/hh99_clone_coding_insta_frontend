@@ -16,10 +16,35 @@ const initialState = {
   is_login: false
 }
 
-const signupAX = (email, userName, pw, myImg) => {
+const signupAX = (id, user_name, pwd, image_url) => {
   return function (dispatch) {
+    if(!image_url){
+      image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"
+    }
 
+    axios.post("http://15.164.217.16/api/signup", {
+      email: id,
+      userName: user_name,
+      pw: pwd,
+      myImg: image_url,
+    })
+    .then((res) => {
+      console.log(res.data)
+    }).catch((error) => {
+      window.alert('회원가입이 정상적으로 이루워지지 않습니다.')
+    })
   }
-
 }
 
+export default handleActions(
+  {
+
+  },
+  initialState
+)
+
+const actionCreators = {
+  signupAX,
+}
+
+export { actionCreators }
