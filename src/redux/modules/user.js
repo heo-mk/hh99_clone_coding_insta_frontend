@@ -1,151 +1,50 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import axios from 'axios';
+import { history } from "../configureStore";
 
-// import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
-// import { auth } from "../../shared/firebase";
-// import firebase from "firebase/app";
-
-// actions
-const LOG_OUT = "LOG_OUT";
-const GET_USER = "GET_USER";
 const SET_USER = "SET_USER";
 
-// action creators
-const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const getUser = createAction(GET_USER, (user) => ({ user }));
-const setUser = createAction(SET_USER, (user) => ({ user }));
+const setUser = createAction(SET_USER, (user) => ({user}))
 
-// initialState
 const initialState = {
-  user: null,
-  is_login: false,
-};
+  user: {
+    user_name: null,
+    uid: null,
+    profile_url: null,
+  },
+  is_login: false
+}
 
-// middleware actions
-const loginFB = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
-      auth
-        .signInWithEmailAndPassword(id, pwd)
-        .then((user) => {
-          console.log(user);
+const signupAX = (id, user_name, pwd, image_url) => {
+  return function (dispatch) {
+    if(!image_url){
+      image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"
+    }
 
-          dispatch(
-            setUser({
-              user_name: user.user.displayName,
-              id: id,
-              user_profile: "",
-              uid: user.user.uid,
-            })
-          );
-
-          history.push("/");
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-
-          console.log(errorCode, errorMessage);
-        });
-    });
-  };
-};
-
-const signupFB = (id, pwd, user_name) => {
-  return function (dispatch, getState, { history }) {
-    auth
-      .createUserWithEmailAndPassword(id, pwd)
-      .then((user) => {
-        console.log(user);
-
-        auth.currentUser
-          .updateProfile({
-            displayName: user_name,
-          })
-          .then(() => {
-            dispatch(
-              setUser({
-                user_name: user_name,
-                id: id,
-                user_profile: "",
-                uid: user.user.uid,
-              })
-            );
-            history.push("/");
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        // Signed in
-        // ...
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-        // ..
-      });
-  };
-};
-
-const loginCheckFB = () => {
-  return function (dispatch, getState, {history}){
-    auth.onAuthStateChanged((user) => {
-      if(user){
-        dispatch(
-          setUser({
-            user_name: user.displayName,
-            user_profile: "",
-            id: user.email,
-            uid: user.uid,
-          })
-        );
-      }else{
-        dispatch(logOut());
-      }
+    axios.post("http://15.164.217.16/api/signup", {
+      email: id,
+      userName: user_name,
+      pw: pwd,
+      myImg: image_url,
+    })
+    .then((res) => {
+      console.log(res.data)
+    }).catch((error) => {
+      window.alert('회원가입이 정상적으로 이루워지지 않습니다.')
     })
   }
 }
 
-const logoutFB = () => {
-  return function (dispatch, getState, {history}) {
-    auth.signOut().then(() => {
-      dispatch(logOut());
-      history.replace('/');
-    })
-  }
-}
-
-// reducer
 export default handleActions(
   {
-    [SET_USER]: (state, action) =>
-      produce(state, (draft) => {
-        setCookie("is_login", "success");
-        draft.user = action.payload.user;
-        draft.is_login = true;
-      }),
-    [LOG_OUT]: (state, action) =>
-      produce(state, (draft) => {
-        deleteCookie("is_login");
-        draft.user = null;
-        draft.is_login = false;
-      }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+
   },
   initialState
-);
+)
 
-// action creator export
 const actionCreators = {
-  logOut,
-  getUser,
-  signupFB,
-  loginFB,
-  loginCheckFB,
-  logoutFB,
-};
+  signupAX,
+}
 
-export { actionCreators };
+export { actionCreators }
