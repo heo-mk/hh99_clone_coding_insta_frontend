@@ -7,7 +7,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import styled from "styled-components";
-import axios from 'axios'
+
 
 const PostWrite = (props) => {
 
@@ -35,9 +35,9 @@ const PostWrite = (props) => {
                 rows={4}
                 variant="outlined"
               />
-              {/* <WriteSubmit>
-                
-              </WriteSubmit> */}
+              <WriteSubmit>
+                게시글 작성
+              </WriteSubmit>
             </WriteContent>
           </WriteBox>
         </WriteInner>
@@ -115,10 +115,19 @@ const WriteImg = styled.img`
   box-sizing: border-box;
 `
 const WriteSubmit = styled.button`
+  margin: auto;
   margin-top: 20px;
-  width: 100%;
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
+  background-color: transparent;
+  padding: 8px 14px;
+  border-radius: 10px;
+  &:hover {
+    background-color: #FAFAFA;
+  }
+  cursor: pointer;
+  outline: none;
+  border: none;
 `
 
 export default PostWrite;
