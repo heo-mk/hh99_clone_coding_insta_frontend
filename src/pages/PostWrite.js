@@ -30,7 +30,7 @@ const PostWrite = (props) => {
       contents: contents,
     }
     console.log(post)
-    // dispatch(postActions.add)
+    dispatch(postActions.addPostAX(post))
   }
 
   return (
