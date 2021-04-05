@@ -7,8 +7,6 @@ import { history } from "../configureStore"
 import "moment";
 import moment from "moment";
 
-// import { actionCreators as imageActions } from "./image";
-
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
@@ -34,12 +32,17 @@ const initialPost = {
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
-    axios.post("192.168.219.105", {
+    console.log(post.contents)
+    axios.post("https://6068922e0add490017340329.mockapi.io/api/mocked/post", {
       contents: post.contents,
+      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      user_name: "대호리",
+      image_url: "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/22QT/image/p-RX98d_34y9ElK_Qfwz8OfHhxM.jpg",
+      profile_image_url: "https://cdn.crowdpic.net/detail-thumb/thumb_d_382A8A747FFDF073E20C13398D110DE7.jpg",
     })
     .then((doc) => {
       console.log(doc)
-      let post_list = {...post}
+      let post_list = {...post, id: doc.id}
       dispatch(addPost(post_list))
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       history.replace("/")
