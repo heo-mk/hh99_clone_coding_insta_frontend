@@ -1,6 +1,7 @@
 import React from "react";
 
-import Upload from "../shared/Upload"
+// import Upload from "../shared/Upload"
+import Header from "../components/Header"
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -9,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as imageActions } from "../redux/modules/image"
 import { actionCreators as postActions} from "../redux/modules/post"
 
 
@@ -16,18 +18,41 @@ const PostWrite = (props) => {
   const dispatch = useDispatch()
   const preview = useSelector((state) => state.image.preview)
   const [contents, setContents] = React.useState()
+  const [image_url, setImages] = React.useState()
+
+  React.useEffect(() => {
+    dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+  }, [])
+
+  const selectFile = (e) => {
+    console.log(e.target.value)
+    setImages(e.target.value)
+
+    if (!e.target.value){
+      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+      return
+    }
+    dispatch(imageActions.setPreview(e.target.value))
+  }
+
+  const ImageError = () => {
+    window.alert('잘못된 이미지 주소입니다.😐')
+    setImages("")
+    dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+  }
 
   const changeContents = (e) => {
     setContents(e.target.value)
   }
 
   const addPost = () => {
-    if(!contents){
+    if(!contents || !image_url){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")
       return
     }
     let post ={
       contents: contents,
+      image_url: image_url
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
@@ -35,6 +60,7 @@ const PostWrite = (props) => {
 
   return (
     <React.Fragment>
+      <Header/>
       <WriteMainContainer>
         <WriteInner>
           <WriteBox>
@@ -47,9 +73,13 @@ const PostWrite = (props) => {
             </WriteHeader>
             <WriteContent>
               <WriteUpload>
-                <Upload />
+              <TextField id="standard-basic" label="Image_url" onChange={selectFile} 
+                value = {image_url}
+              />
               </WriteUpload>
-              <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"} />
+              <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"}
+                onError={ImageError}
+              />
               <TextField
                 id="outlined-multiline-static"
                 label="📝글 작성"

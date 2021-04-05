@@ -32,22 +32,25 @@ const initialPost = {
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
-    console.log(post.contents)
-    axios.post("https://6068922e0add490017340329.mockapi.io/api/mocked/post", {
+    let _post = {
       contents: post.contents,
-      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
-      user_name: "대호리",
-      image_url: "https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/22QT/image/p-RX98d_34y9ElK_Qfwz8OfHhxM.jpg",
-      profile_image_url: "https://cdn.crowdpic.net/detail-thumb/thumb_d_382A8A747FFDF073E20C13398D110DE7.jpg",
+      // insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      user_id: "대호리",
+      img: post.image_url,
+      contentsLike: 1,
+      // profile_image_url: "https://cdn.crowdpic.net/detail-thumb/thumb_d_382A8A747FFDF073E20C13398D110DE7.jpg",
+    }
+    axios.post("http://15.164.217.16/api/contents", {
+      ..._post
     })
     .then((doc) => {
       console.log(doc)
-      let post_list = {...post, id: doc.id}
+      let post_list = {..._post, id: doc.data.id}
       dispatch(addPost(post_list))
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       history.replace("/")
     }).catch((err) => {
-      window.alert("포스트 작성에 문제가 있어요!")
+      window.alert("게시물 작성에 문제가 있어요!")
     })
   }
 }

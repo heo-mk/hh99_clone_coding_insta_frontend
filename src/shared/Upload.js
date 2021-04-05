@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
+import TextField from '@material-ui/core/TextField';
 import {useDispatch, useSelector} from "react-redux";
 import {actionCreators as imageActions} from "../redux/modules/image"
 
@@ -26,7 +27,7 @@ const Upload = () => {
     }
   }
 
-  return(
+  return (
     <Button
         variant="outlined"
         component="label"
@@ -34,13 +35,13 @@ const Upload = () => {
         startIcon={<CloudUploadIcon />}
         size = "small"
       >
+        
         <input id={"file-input"} style={{ display: 'none' }} type="file" name="imageFile"
           onChange={selectFile} ref={fileInput} disabled={is_uploading}
         />
         Picture
-      </Button>
-  )
-
+    </Button>     
+  ) 
 }
 
 export default Upload

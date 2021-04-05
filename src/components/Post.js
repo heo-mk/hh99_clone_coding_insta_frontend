@@ -119,7 +119,7 @@ const PostBox = styled.div`
   height: 500px; */
 
   @media (max-width: 614px){
-    width: 61.4%;
+    width: 100vw;
   }
 `;
 

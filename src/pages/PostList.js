@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
+import Header from "../components/Header"
 import Post from "../components/Post";
 import InfinityScroll from "../shared/InfinityScroll";
 
@@ -12,6 +13,7 @@ const PostList = (props) => {
 
   return (
     <React.Fragment>
+      <Header />
       <PostMainContainer>
         <PostInner>
           <Post/>
