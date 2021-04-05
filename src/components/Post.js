@@ -47,7 +47,7 @@ const Post = (props) => {
                   <CloudQueueIcon padding-left="16px" padding-right="16px" cursor="pointer"/>
                   <SendIcon padding-left="16px" cursor="pointer"/>
                 </ThreeIcons>
-                <BookmarkBorderIcon height="24px" width="24px" cursor="pointer"/>
+                <BookmarkBorderIcon cursor="pointer"/>
             </BottomIcons>
             <BottomLike>좋아요 {props.like_cnt}개</BottomLike>
             <BottomAuthorCommentBox>
@@ -61,9 +61,9 @@ const Post = (props) => {
                     <ReplyWriter>{props.reply_info.user_id}</ReplyWriter>
                     <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
-                <Likebox>
-                    <FavoriteBorderIcon cursor="pointer"/>
-                </Likebox>
+                <HeartBtn onClick={() => {}}>
+                  <span font-size="24px">♡</span>
+                </HeartBtn>
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
             <CommentInputBox>
@@ -119,7 +119,9 @@ const PostBox = styled.div`
   height: 500px; */
 
   @media (max-width: 614px){
+
     width: 100vw;
+
   }
 `;
 
@@ -237,7 +239,7 @@ const Comment = styled.div`
 `;
 
 const ReplyBox = styled.div`
-  padding: 5px 16px 0px 16px;
+  padding: 5px 20px 0px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -259,17 +261,16 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const Likebox = styled.div`
-  padding: 0px 16px 0px 0px;
+const HeartBtn = styled.div`
   height: 12px;
   width: 12px;
-  background-size: cover;
+  cursor: pointer;
 `;
 
 const InsertTime = styled.div`
   font-size: 10px;
   color: #999;
-  border-bottom: 1px solid #8E8E8E;
+  border-bottom: 1px solid #EFEFEF;
   padding: 16px;
 `;
 
