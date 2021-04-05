@@ -14,7 +14,7 @@ const Upload = () => {
     console.log(fileInput.current.files[0])
     const reader = new FileReader();
     const file = fileInput.current.files[0]
-    if (file == undefined){
+    if (file === undefined){
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       return
     }

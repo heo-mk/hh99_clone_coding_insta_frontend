@@ -38,8 +38,8 @@ const PostInner = styled.div`
   width: 935px;
   /* height: 500px; */
   /* background: red;  */
-  @media (max-width: 1000px){
-    width: 93.5%;
+  @media (max-width: 935px){
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

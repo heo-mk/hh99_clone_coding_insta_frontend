@@ -34,7 +34,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                <MoreHorizIcon onClick height="14px" width="14px" cursor="pointer"/>
+                <MoreHorizIcon onClick={_onClick} height="14px" width="14px" cursor="pointer"/>
                 {/* <HeaderInfo>
                 </HeaderInfo> */}
             </PostHeader>
@@ -118,7 +118,7 @@ const PostBox = styled.div`
   margin-top:10px; 
   height: 500px; */
 
-  @media (max-width: 1000px){
+  @media (max-width: 614px){
     width: 61.4%;
   }
 `;
@@ -128,9 +128,9 @@ const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
+  padding: 0px 16px;
 
-  @media (max-width: 1000){
+  @media (max-width: 614){
     width: 100%;
     heigth: 100%;
   }
@@ -151,10 +151,10 @@ const ProfileCircle = styled.div`
   background-size: cover;
   cursor: pointer;
   
-  @media (max-width: 1000){
+  /* @media (max-width: 614px){
     width: 100%;
     heigth: 100%;
-  }
+  } */
 `; 
 
 const HeaderInfo = styled.div`
