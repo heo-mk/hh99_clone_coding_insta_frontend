@@ -46,7 +46,7 @@ const HeaderInnerContainer = styled.div`
   height: 100%;
   padding: 0 20px 0 20px;
   @media (max-width: 975px){
-    width: 100vw;
+    width: 100%;
   }
 `
 

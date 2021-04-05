@@ -28,10 +28,20 @@ const PostMainContainer = styled.div`
   padding-top: 130px;
   display: flex;
   justify-content: center;
+  
+  /* @media (max-width: 1000px){
+    heigth: 
+  } */
 `;
 
 const PostInner = styled.div`
   width: 935px;
   /* height: 500px; */
   /* background: red;  */
+  @media (max-width: 1000px){
+    width: 93.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

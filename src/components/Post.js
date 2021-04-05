@@ -56,8 +56,8 @@ const Post = (props) => {
             </BottomAuthorCommentBox>
             <ReplyBox>
                 <Replys>
-                    <ReplyWriter>{props.replywrtier_id}</ReplyWriter>
-                    <Reply>{props.reply}</Reply>
+                    <ReplyWriter>{props.reply_info.user_id}</ReplyWriter>
+                    <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
                 <Likebox>
                     <FavoriteBorderIcon cursor="pointer"/>
@@ -88,12 +88,18 @@ Post.defaultProps = {
   },
   profile_image_url: "https://pbs.twimg.com/media/DYdKfivVwAAe_td.jpg",
   post_image_url: "https://static.hubzum.zumst.com/2017/10/11/13/9b4064dd95be428a964e95af18cc0a0b.jpg",
+  
+  reply_info: {
+    user_id :  "hh99",
+    username: "",  
+    reply_input:  "멋있네요",
+    reply_cancel: "",
+    reply_dt: "2021-04-01 12:02:02",
+    is_me: false,
+  },
   content: "클론코딩 9조 대박!",
   like_cnt: 10,
-  replywrtier_id: "hh99",
-  reply: "멋있네요",
   insert_dt: "2021-04-02 14:02:02", 
-  is_me: false,
 }
 
 const PostBox = styled.div`
@@ -105,9 +111,14 @@ const PostBox = styled.div`
   box-sizing: border-box;
   margin-bottom: 60px; 
   background: white;
+  max-width: 614px; 
   /* margin: auto;
   margin-top:10px; 
   height: 500px; */
+
+  @media (max-width: 1000px){
+    width: 61.4%;
+  }
 `;
 
 const PostHeader = styled.div`
@@ -116,6 +127,11 @@ const PostHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+
+  @media (max-width: 1000){
+    width: 100%;
+    heigth: 100%;
+  }
 `;
 
 const ProfileCircle = styled.div`
@@ -126,7 +142,12 @@ const ProfileCircle = styled.div`
   background-image: url("${(props) => props.src}");  
   background-size: cover;
   cursor: pointer;
-`;  
+  
+  @media (max-width: 1000){
+    width: 100%;
+    heigth: 100%;
+  }
+`; 
 
 const HeaderInfo = styled.div`
   height: 40px;
@@ -264,11 +285,13 @@ const CommentInput = styled.input`
 const UploadBtn = styled.div`
   font-size: 14px;
   color: #3897F0;
+  cursor: pointer;
+  opacity: 1
   /* position: absolute; */
   /* right: 16px; */
   /* top: 50%; */
   /* transform: translateY(-50%); */
-  cursor: pointer;
+  
   /* pointer-events: none; */
-  opacity: 1
+  
 `;
