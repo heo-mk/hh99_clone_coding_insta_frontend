@@ -6,6 +6,7 @@ import { history } from "../redux/configureStore";
 
 import PostList from "../pages/PostList";
 import PostWrite from "../pages/PostWrite";
+import SignUp from "../pages/Signup"
 import NotFound from "../pages/NotFound";
 import Header from "../components/Header";
 import styled from "styled-components";
@@ -17,10 +18,10 @@ function App() {
 
   return (
     <ReactContainer>
-      <Header/>
       <ConnectedRouter history={history}>
         <Route path="/" exact component={PostList}/>
         <Route path="/upload" exact component={PostWrite}/>
+        <Route path="/signup" exact component={SignUp} />
         {/* <Switch>
           <Route exact component={NotFound}/>
         </Switch> */}

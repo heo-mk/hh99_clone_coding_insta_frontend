@@ -26,6 +26,7 @@ export default handleActions({
     draft.uploading = action.payload.uploading;
   }),
   [SET_PREVIEW]: (state, action) => produce(state, (draft) => {
+    console.log(action.payload.preview)
     draft.preview = action.payload.preview;
   }),
   [REMOVE_PREVIEW]: (state, action) => produce(state, (draft) => {

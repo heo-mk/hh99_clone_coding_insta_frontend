@@ -36,6 +36,7 @@ const HeaderContainer = styled.div`
   height: 54px;
   border: none;
   border-bottom: 1px solid #DBDBDB;
+  z-index: 10;
 `
 const HeaderInnerContainer = styled.div`
   display: flex;
