@@ -8,8 +8,30 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import styled from "styled-components";
 
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions} from "../redux/modules/post"
+
 
 const PostWrite = (props) => {
+  const dispatch = useDispatch()
+  const preview = useSelector((state) => state.image.preview)
+  const [contents, setContents] = React.useState()
+
+  const changeContents = (e) => {
+    setContents(e.target.value)
+  }
+
+  const addPost = () => {
+    if(!contents){
+      window.alert("😗빈칸을 채워주세요...ㅎㅎ")
+      return
+    }
+    let post ={
+      contents: contents,
+    }
+    console.log(post)
+    // dispatch(postActions.add)
+  }
 
   return (
     <React.Fragment>
@@ -27,15 +49,16 @@ const PostWrite = (props) => {
               <WriteUpload>
                 <Upload />
               </WriteUpload>
-              <WriteImg src={props.image_url} />
+              <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"} />
               <TextField
                 id="outlined-multiline-static"
                 label="📝글 작성"
                 multiline
                 rows={4}
                 variant="outlined"
+                onChange = {changeContents}
               />
-              <WriteSubmit>
+              <WriteSubmit onClick={addPost}>
                 게시글 작성
               </WriteSubmit>
             </WriteContent>
@@ -71,6 +94,9 @@ const WriteBox = styled.div`
   margin-bottom: 60px; 
   background: white;
   padding-bottom: 20px;
+  @media (max-width: 614px){
+    width: 100vw;
+  }
 `
 
 const WriteHeader = styled.div`
@@ -119,11 +145,11 @@ const WriteSubmit = styled.button`
   margin-top: 20px;
   text-align: center;
   font-weight: 600;
-  background-color: transparent;
+  background-color: silver;
   padding: 8px 14px;
-  border-radius: 10px;
+  border-radius: 5px;
   &:hover {
-    background-color: #FAFAFA;
+    background-color: grey;
   }
   cursor: pointer;
   outline: none;
