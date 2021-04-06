@@ -5,9 +5,16 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../components/Header"
 import Post from "../components/Post";
 import InfinityScroll from "../shared/InfinityScroll";
+import {actionCreators as postActions} from "../redux/modules/post";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
+  const post_list = useSelector((state) => state.post.list);
+
+
+  React.useEffect(() => {
+    dispatch(postActions.getPostAX());
+  }, []);
 
   const {history} = props;
 
@@ -16,7 +23,10 @@ const PostList = (props) => {
       <Header />
       <PostMainContainer>
         <PostInner>
-          <Post/>
+          {post_list.map((p, idx) => {
+            return <Post key={p.id} {...p}/>
+          })} 
+            {/* <Post/> */}
         </PostInner>
       </PostMainContainer>
     </React.Fragment>
