@@ -6,7 +6,7 @@ import { history } from "../configureStore"
 
 import "moment";
 import moment from "moment";
-import { DockSharp } from "@material-ui/icons";
+
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -60,26 +60,25 @@ const getPostAX = () => {
   return function (dispatch, getState){
     axios.get("http://15.164.217.16/api/contents")
       .then((res) => {
-      console.log(res.data);
+        console.log(res.data);
 
-      let post_list = []; 
+        let post_list = []; 
 
-      res.forEach((re) => {
-        
-        let _post = re.data;
-        let post = {
-          id: _post.id,
-          contents: _post.contents,
-          insertDt: _post.insertDt,
-          userId: _post.userId,
-          img: _post.img,
-        };
+        res.data.forEach((_post) => {
+          
+          let post = {
+            id: _post.id,
+            contents: _post.contents,
+            insert_dt: _post.insertDt,
+            user_id: _post.userId,
+            img_url: _post.img,
+          };
 
-        post_list.push(post);
-      })
-      console.log(post_list);
+          post_list.push(post);
+        })
+        console.log(post_list);
 
-      dispatch(setPost(post_list));
+        dispatch(setPost(post_list));
     }).catch((err) => {
       window.alert("게시물을 가져오는데 문제가 있어요!")
     })

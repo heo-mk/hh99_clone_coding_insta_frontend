@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 import { actionCreators as userActions } from "../redux/modules/user"
 import { useDispatch, useSelector } from "react-redux";
+import { history } from "../redux/configureStore"
 
 import { emailCheck } from "../shared/common"
 import ImgTitle from "../instagramLogo.png";
@@ -39,9 +40,17 @@ const Login = () => {
         {ok_submit ? (
           <LoginBtn onClick={login}>Log In</LoginBtn>
         ): (
-          <LoginBtn style={{opacity: "0.5"}}>Log In</LoginBtn>
+          <LoginBtn style={{opacity: "0.3"}}>Log In</LoginBtn>
         )}
       </LoginContainer>
+      <AccountContainer>
+        <NoAccount>
+          Don't have an account? 
+          <GotoSignup onClick={()=>{
+            history.push('/signup')
+          }} > Sign up </GotoSignup>
+        </NoAccount>
+      </AccountContainer>
     </React.Fragment>
   );
 }
@@ -57,6 +66,19 @@ const LoginContainer = styled.div`
   align-items: center;
   padding: 30px 0px;
 `
+
+const AccountContainer = styled.div`
+  width: 350px;
+  border: 1px solid #DBDBDB;
+  margin: auto;
+  margin-top: 15px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 0px;
+`
+
 const LoginImg = styled.img`
   height: 51px;
   width: 175px;
@@ -87,6 +109,16 @@ const LoginBtn = styled.button`
   outline: none;
   background-color: #0095F6;
   color: white;
+`
+const NoAccount = styled.p`
+  font-size: 14px;
+  color: #262626;
+`
+const GotoSignup = styled.span`
+  font-size: 14px;
+  color: #0095F6;
+  font-weight: 600;
+  cursor: pointer;
 `
 
 export default Login;
