@@ -22,12 +22,9 @@ const PostList = (props) => {
     <React.Fragment>
       <Header />
       <PostMainContainer>
-        <PostInner>
           {post_list.map((p, idx) => {
             return <Post key={p.id} {...p}/>
           })} 
-            {/* <Post/> */}
-        </PostInner>
       </PostMainContainer>
     </React.Fragment>
   );
@@ -39,21 +36,9 @@ export default PostList;
 const PostMainContainer = styled.div`
   padding-top: 130px;
   display: flex;
-  justify-content: center;
-  
+  flex-direction: column;
   /* @media (max-width: 1000px){
     heigth: 
   } */
 `;
 
-const PostInner = styled.div`
-  width: 935px;
-  /* height: 500px; */
-  /* background: red;  */
-  @media (max-width: 935px){
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
