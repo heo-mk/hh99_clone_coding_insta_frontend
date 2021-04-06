@@ -63,18 +63,17 @@ const getPostAX = () => {
 
       console.log(res.data);
       
-      // 여기서 오류 발생
       let post_list = []; 
 
-      res.forEach((re) => {   
+      res.data.forEach((_post) => {   
         
-        let _post = re.data;
+        // let _post = re.data;
         let post = {
           id: _post.id,
-          contents: _post.contents,
-          insertDt: _post.insertDt,
-          userId: _post.userId,
-          img: _post.img,
+          content: _post.contents,
+          insert_dt: _post.insertDt,
+          user_id: _post.userId,
+          post_image_url: _post.img,
         };
 
         post_list.push(post);
