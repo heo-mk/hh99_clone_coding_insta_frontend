@@ -67,10 +67,6 @@ const deleteCommentAX = (id) => {
   return function (dispatch, getState){
     axios.delete(`http://15.164.217.16/api/contents/${id}`)  
       .then((res) => {
-        // if(!id) {
-        //   window.alert("게시물을 삭제할 권한이 없습니다!")  // 처리가 된 것.
-        //   return;
-        // }
         dispatch(deleteComment(id));
         history.replace("/");
       }).catch((err) => {
