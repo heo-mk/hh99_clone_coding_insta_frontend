@@ -62,7 +62,7 @@ const Post = (props) => {
                     <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
                 <HeartBtn onClick={() => {}}>
-                  <span font-size="24px">♡</span>
+                  <span fontSize="24px">♡</span>
                 </HeartBtn>
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
