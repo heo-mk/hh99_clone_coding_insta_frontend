@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 
+import ModalContainer from "./ModalDetail"
+
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
@@ -15,11 +17,13 @@ import Sample_img from '../shared/dragon.jpg';
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux"; 
 import {actionCreators as commentActions} from "../redux/modules/comment"
+import ModalDetail from "./ModalDetail";
 
 
 const Post = (props) => {
   const dispatch = useDispatch();
   const [comments, setComments ] = useState()
+  const [ is_modal, setDetailModal ] = useState()
   const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
   // const is_login = useSelector((state) => state.user.is_login);
@@ -29,6 +33,14 @@ const Post = (props) => {
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
+  }
+
+  const openDetailModal = () => {
+    setDetailModal(true)
+  }
+
+  const closeDetailModal = () => {
+    setDetailModal(false)
   }
 
   const addComment = () => {
@@ -43,6 +55,7 @@ const Post = (props) => {
 
   return ( 
     <React.Fragment>
+      <PostInner>
         <PostBox >
             <PostHeader>
                 <PostHeaderLeft>
@@ -52,7 +65,7 @@ const Post = (props) => {
                 <MoreHorizIcon  height="14px" width="14px" cursor="pointer"/>
             </PostHeader>
             <PostBody>
-                <PostImage src={props.post_image_url}/>
+                <PostImage src={props.post_image_url} onClick={openDetailModal} />
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
@@ -89,6 +102,10 @@ const Post = (props) => {
                 
             </CommentInputBox>
         </PostBox>
+      </PostInner>
+        {is_modal ? <ModalDetail close={closeDetailModal} />        
+        : null}
+        
     </React.Fragment>
   )
 };
@@ -117,6 +134,19 @@ Post.defaultProps = {
   like_cnt: 10,
   insert_dt: "2021-04-02 14:02:02", 
 }
+
+const PostInner = styled.div`
+  width: 935px;
+  margin:auto;
+  /* height: 500px; */
+  /* background: red;  */
+  @media (max-width: 935px){
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 const PostBox = styled.div`
   /* justify-content: center; */
