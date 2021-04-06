@@ -59,6 +59,10 @@ const PostWrite = (props) => {
     dispatch(postActions.addPostAX(post))
   }
 
+  const editPost = () => {
+    dispatch(postActions.editPostAX(post_id, {}))
+  }
+
   return (
     <React.Fragment>
       <Header/>
