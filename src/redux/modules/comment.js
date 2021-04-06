@@ -71,7 +71,7 @@ const deleteCommentAX = (id) => {
         //   window.alert("게시물을 삭제할 권한이 없습니다!")  // 처리가 된 것.
         //   return;
         // }
-        dispatch(deletePost(id));
+        dispatch(deleteComment(id));
         history.replace("/");
       }).catch((err) => {
         window.alert("게시물 삭제에 문제가 있어요!")
@@ -87,6 +87,13 @@ export default handleActions(
     }),
     [SET_COMMENT]: (state, action) => produce(state, (draft) => {
       draft.list[action.payload.post_id] = action.payload.comment_list
+    }), 
+    [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
+      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+
+      if(idx !== -1){
+        draft.list.splice(idx, 1);
+      }
     }), 
   },
   initialState

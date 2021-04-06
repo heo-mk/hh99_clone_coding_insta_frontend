@@ -152,8 +152,18 @@ export default handleActions(
           return acc;
         }
       }, [])
+    }),
+    [EDIT_POST]: (state, action) => produce(state, (draft) => {
+      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+      draft.list[idx] = {...draft.list[idx], ...action.payload.post}
+    }),
+    [DELETE_POST]: (state, action) => produce(state, (draft) => {
+      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
 
-    })
+      if(idx !== -1){
+        draft.list.splice(idx, 1);
+      }
+    }),
   },
   initialState
 )

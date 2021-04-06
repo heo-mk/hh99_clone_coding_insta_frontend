@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import ModalDetail from "./ModalDetail";
-import ModalForChange from "./ModalEditDelete";
+import ModalForChange from "./ModalForChange";
 
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -70,7 +70,7 @@ const Post = (props) => {
                 ):(               
                   null           
                 )} */}
-                <MoreHorizIcon  height="14px" width="14px" cursor="pointer" onClick={}/>
+                <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />

@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import {actionCreators as postActions} from "../redux/modules/post"
 
 
 const ModalForChange = () => {
   return ( 
     <React.Fragment>
       <ModalBox>
-        <MoveBox>게시물로 이동</MoveBox>
-        <EditBox>게시물 수정</EditBox>
-        <DeleteBox>게시물 삭제</DeleteBox>
+        {/* <MoveBox onclikc>상세페이지로 이동</MoveBox> */}
+        <EditBox onClick={() => { 
+                    history.push(`/${props.id}`)}>게시물 수정</EditBox>
+        <DeleteBox >게시물 삭제</DeleteBox>
         <CancelBox>취소</CancelBox>
       </ModalBox>
     </React.Fragment>
