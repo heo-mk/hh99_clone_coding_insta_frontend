@@ -24,6 +24,7 @@ const Post = (props) => {
   const dispatch = useDispatch();
   const [comments, setComments ] = useState()
   const [ is_modal, setDetailModal ] = useState()
+  const ok_changes = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
   // const is_login = useSelector((state) => state.user.is_login);
@@ -62,7 +63,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                <MoreHorizIcon  height="14px" width="14px" cursor="pointer"/>
+                <MoreHorizIcon  height="14px" width="14px" cursor="pointer" onClick={}/>
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />

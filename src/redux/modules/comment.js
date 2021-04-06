@@ -44,7 +44,7 @@ const addCommentAX = (comment, post_id) => {
   }
 }
 
-const getCommentFB = (post_id = null) => {
+const getCommentAX = (post_id = null) => {
   return function (dispatch) {
     if (!post_id){
       return;
@@ -63,6 +63,23 @@ const getCommentFB = (post_id = null) => {
   }
 }
 
+const deleteCommentAX = (id) => {
+  return function (dispatch, getState){
+    axios.delete(`http://15.164.217.16/api/contents/${id}`)  
+      .then((res) => {
+        // if(!id) {
+        //   window.alert("게시물을 삭제할 권한이 없습니다!")  // 처리가 된 것.
+        //   return;
+        // }
+        dispatch(deletePost(id));
+        history.replace("/");
+      }).catch((err) => {
+        window.alert("게시물 삭제에 문제가 있어요!")
+      })
+  }
+}
+
+
 export default handleActions(
   {
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
@@ -77,7 +94,8 @@ export default handleActions(
 
 const actionCreators = {
   addCommentAX,
-  getCommentFB
+  getCommentAX,
+  deleteCommentAX
 }
 
 export {actionCreators}
