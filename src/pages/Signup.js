@@ -90,7 +90,7 @@ const SignUp = () => {
         {ok_submit ? (
           <SignupBtn onClick={signup}>Sign up</SignupBtn>
         ):(
-          <SignupBtn style={{opacity: "0.5"}}>Sign up</SignupBtn>
+          <SignupBtn style={{opacity: "0.3"}}>Sign up</SignupBtn>
         )}
         
         

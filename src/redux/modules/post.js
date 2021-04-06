@@ -6,7 +6,7 @@ import { history } from "../configureStore"
 
 import "moment";
 import moment from "moment";
-import { DockSharp } from "@material-ui/icons";
+
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -60,6 +60,7 @@ const getPostAX = () => {
   return function (dispatch, getState){
     axios.get("http://15.164.217.16/api/contents")
       .then((res) => {
+
       console.log(res.data);
       
       // 여기서 오류 발생
@@ -81,6 +82,7 @@ const getPostAX = () => {
       console.log(post_list);
 
       dispatch(setPost(post_list));
+
     }).catch((err) => {
       window.alert("게시물을 가져오는데 문제가 있어요!")
     })

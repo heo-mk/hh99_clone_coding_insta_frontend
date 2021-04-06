@@ -19,6 +19,7 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview)
   const [contents, setContents] = React.useState()
   const [image_url, setImages] = React.useState()
+  const ok_submit = contents && image_url ? true : false
 
   React.useEffect(() => {
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -88,9 +89,11 @@ const PostWrite = (props) => {
                 variant="outlined"
                 onChange = {changeContents}
               />
-              <WriteSubmit onClick={addPost}>
-                게시글 작성
-              </WriteSubmit>
+              {ok_submit ? (
+                <WriteSubmit onClick={addPost}>게시글 작성</WriteSubmit>
+              ): (
+                <WriteSubmit style={{opacity: "0.3"}} >게시글 작성</WriteSubmit>
+              )}
             </WriteContent>
           </WriteBox>
         </WriteInner>
@@ -175,12 +178,10 @@ const WriteSubmit = styled.button`
   margin-top: 20px;
   text-align: center;
   font-weight: 600;
-  background-color: silver;
+  background-color: #0095F6;
+  color: white;
   padding: 8px 14px;
-  border-radius: 5px;
-  &:hover {
-    background-color: grey;
-  }
+  border-radius: 3px;
   cursor: pointer;
   outline: none;
   border: none;
