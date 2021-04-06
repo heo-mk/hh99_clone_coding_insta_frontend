@@ -37,10 +37,10 @@ const SignUp = () => {
 
 
   const signup = () => {
-    if (!id || !pwd || !user_name || !pwdConfirm) {
-      window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
-      return;
-    }
+    // if (!id || !pwd || !user_name || !pwdConfirm) {
+    //   window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
+    //   return;
+    // }
     if(!emailCheck(id)){
       window.alert('이메일 형식이 맞지 않습니다!');
       return;
