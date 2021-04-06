@@ -22,14 +22,15 @@ const signupAX = (id, user_name, pwd, profile_url) => {
       profile_url  = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"
     }
 
-    axios.post("http://15.164.217.16/api/signup", {
+    axios.post("http://15.164.217.16/api/signups", {
       email: id,
       userName: user_name,
-      pw: pwd,
+      password: pwd,
       myImg: profile_url,
     })
     .then((res) => {
       console.log(res.data)
+      history.replace('/login')
     }).catch((error) => {
       window.alert('회원가입이 정상적으로 이루워지지 않습니다.')
     })
@@ -38,9 +39,9 @@ const signupAX = (id, user_name, pwd, profile_url) => {
 
 const loginAX = (id, pwd) => {
   return function (dispatch){
-    axios.post("", {
+    axios.post("http://15.164.217.16/api/logins", {
       email: id,
-      pw: pwd,
+      password: pwd,
     })
     .then((res) => {
       let token = res.data.token
@@ -48,7 +49,7 @@ const loginAX = (id, pwd) => {
       let headers = {
         "access-token": token
       }
-      axios.get("", headers)
+      axios.get("http://15.164.217.16/api/logins", headers)
       .then((response) => {
         console.log(response.data)
         let user_info = {

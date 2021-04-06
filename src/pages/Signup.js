@@ -50,7 +50,7 @@ const SignUp = () => {
       return;
     }
     
-    // dispatch(userActions.signupAX(id, user_name, pwd, image_url))
+    dispatch(userActions.signupAX(id, user_name, pwd, image_url))
 
   }
 

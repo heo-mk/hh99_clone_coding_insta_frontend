@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -8,23 +8,38 @@ import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+import { UnfoldLessTwoTone } from "@material-ui/icons";
 
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
-
 import { useDispatch } from "react-redux"; 
-import { UnfoldLessTwoTone } from "@material-ui/icons";
+import {actionCreators as commentActions} from "../redux/modules/comment"
+
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  const {_onClick, is_me, 
-          like_cnt, like_ids, like_users,
-          profile_image_url, post_image_url, user_id, post_id} = props;
+  const [comments, setComments ] = useState()
+  const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
   // const is_login = useSelector((state) => state.user.is_login);
   // const idx = props.like_id.findIndex((l) => l === user_info.uid);
   // const is_like = idx !== -1 ? true : false;
+  
+  const selectComment = (e) => {
+    console.log(e.target.value)
+    setComments(e.target.value)
+  }
+
+  const addComment = () => {
+    console.log(comments)
+    let comment_info = {
+      comment: comments,
+      user_name: '',
+    }
+
+    dispatch(commentActions.addCommentAX(comment_info, props.id))
+  } 
 
   return ( 
     <React.Fragment>
@@ -34,9 +49,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                <MoreHorizIcon onClick={_onClick} height="14px" width="14px" cursor="pointer"/>
-                {/* <HeaderInfo>
-                </HeaderInfo> */}
+                <MoreHorizIcon  height="14px" width="14px" cursor="pointer"/>
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url}/>
@@ -67,12 +80,13 @@ const Post = (props) => {
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
             <CommentInputBox>
-                <div>
-                    <CommentInput text="text" placeholder="댓글달기..."></CommentInput>
-                </div>
-                <div>
-                    <UploadBtn>게시</UploadBtn>
-                </div>
+                <CommentInput text="text" placeholder="댓글달기..." onChange={selectComment}  ></CommentInput>
+                {ok_submit ? (
+                  <UploadBtn onClick={addComment} >게시</UploadBtn>
+                ):(               
+                  <UploadBtn style={{opacity: "0.3"}} >게시</UploadBtn>                  
+                )}
+                
             </CommentInputBox>
         </PostBox>
     </React.Fragment>
@@ -275,12 +289,14 @@ const InsertTime = styled.div`
 `;
 
 const CommentInputBox = styled.div`
+  width:  100%;
   height: 56px;
   margin-top: 4px;
   padding: 0px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
   /* background-size: cover;
   position: relative; */
 `;
@@ -289,13 +305,15 @@ const CommentInput = styled.input`
   background: transparent;
   border: none;
   outline: none;
+  width: 90%;
 `;
 
 const UploadBtn = styled.div`
   font-size: 14px;
   color: #3897F0;
   cursor: pointer;
-  opacity: 1
+  opacity: 1;
+  font-weight: 600;
   /* position: absolute; */
   /* right: 16px; */
   /* top: 50%; */
