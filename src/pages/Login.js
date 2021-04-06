@@ -28,7 +28,7 @@ const Login = () => {
       window.alert('이메일 형식이 맞지 않습니다!');
       return;
     }
-    // dispatch(userActions.loginAX(id, pwd))
+    dispatch(userActions.loginAX(id, pwd))
   }
 
   return(
@@ -36,7 +36,7 @@ const Login = () => {
       <LoginContainer>
         <LoginImg src={ImgTitle} />
         <LoginInput placeholder="Email" onChange={submitId} />
-        <LoginInput placeholder="Password" onChange={submitPwd} />
+        <LoginInput placeholder="Password" onChange={submitPwd} type="password" />
         {ok_submit ? (
           <LoginBtn onClick={login}>Log In</LoginBtn>
         ): (

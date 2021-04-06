@@ -103,9 +103,8 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
-        {is_modal ? <ModalDetail close={closeDetailModal} />        
+        {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
         : null}
-        
     </React.Fragment>
   )
 };
@@ -138,8 +137,6 @@ Post.defaultProps = {
 const PostInner = styled.div`
   width: 935px;
   margin:auto;
-  /* height: 500px; */
-  /* background: red;  */
   @media (max-width: 935px){
     width: 100%;
     display: flex;
@@ -149,18 +146,13 @@ const PostInner = styled.div`
 `;
 
 const PostBox = styled.div`
-  /* justify-content: center; */
   width: 614px;
-  /* height: 500px; */
   border: 1px solid #DBDBDB;
   border-radius: 3px;
   box-sizing: border-box;
   margin-bottom: 60px; 
   background: white;
-  max-width: 614px; 
-  /* margin: auto;
-  margin-top:10px; 
-  height: 500px; */
+  // max-width: 614px; 
 
   @media (max-width: 614px){
 
@@ -175,6 +167,7 @@ const PostHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 16px;
+  box-sizing: border-box;
 
   @media (max-width: 614){
     width: 100%;
