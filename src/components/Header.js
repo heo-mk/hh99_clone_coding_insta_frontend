@@ -46,6 +46,7 @@ const HeaderInnerContainer = styled.div`
   width: 975px;
   height: 100%;
   padding: 0 20px 0 20px;
+  box-sizing: border-box;
   @media (max-width: 975px){
     width: 100%;
   }

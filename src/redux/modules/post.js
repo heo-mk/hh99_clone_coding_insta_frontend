@@ -88,6 +88,53 @@ const getPostAX = () => {
   }
 }
 
+const editPostAX = (id = null, edit = {}) => {
+  return function (dispatch, getState){
+    if(!id) {
+      console.log("게시물이 없어요!")
+      return;
+    }
+    // const _image = getState().image.preview;
+    // const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
+    // const _post = getState().post.list[_post_idx];
+    // console.log(_post);
+
+    let _edit = {
+      contents: edit.contents,
+      imgUrl: edit.image_url,
+    }
+
+    axios.put(`http://15.164.217.16/api/contents/${id}`, {
+      ..._edit
+    })
+    .then((doc) => {
+      console.log(doc)
+      let edit_list = {..._edit, id: doc.data.id}
+      dispatch(editPost(edit_list))
+      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+      history.replace("/")
+    }).catch((err) => {
+      window.alert("게시물 작성에 문제가 있어요!")
+    })
+  }
+}
+
+const deletePostAX = (id) => {
+  return function (dispatch, getState){
+    axios.delete(`http://15.164.217.16/api/contents/${id}`)  
+      .then((res) => {
+        // if(!id) {
+        //   window.alert("게시물을 삭제할 권한이 없습니다!")  // 처리가 된 것.
+        //   return;
+        // }
+        dispatch(deletePost(id));
+        history.replace("/");
+      }).catch((err) => {
+        window.alert("게시물 삭제에 문제가 있어요!")
+      })
+  }
+}
+
 
 export default handleActions(
   {
@@ -115,6 +162,10 @@ const actionCreators = {
   addPost,
   addPostAX,
   getPostAX,
+  editPost,
+  editPostAX,
+  deletePost,
+  deletePostAX,
 }
 
 export {actionCreators}

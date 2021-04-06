@@ -60,9 +60,15 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
-    dispatch(postActions.editPostAX(post_id, {}))
-  }
 
+    let edit={
+      contents: contents,
+      image_url: image_url
+    }
+    console.log(edit)
+    dispatch(postActions.editPostAX(edit)) 
+  }
+  // id, {}
   return (
     <React.Fragment>
       <Header/>
