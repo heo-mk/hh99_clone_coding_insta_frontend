@@ -44,7 +44,8 @@ const loginAX = (id, pwd) => {
       password: pwd,
     })
     .then((res) => {
-      let token = res.data.token
+      let token = res.data
+      console.log(res.data)
       localStorage.setItem("access_token", token)
       let headers = {
         "access-token": token
@@ -60,9 +61,11 @@ const loginAX = (id, pwd) => {
         dispatch(setUser(user_info))
     }).catch((error) => {
       window.alert('유저정보를 가지고오지 못했습니다.')
+      console.log(error)
     })
   }).catch((error)=> {
     window.alert('로그인이 제대로되지 않았습니다.')
+    console.log(error)
   })
 }}
 
@@ -78,6 +81,7 @@ export default handleActions(
 
 const actionCreators = {
   signupAX,
+  loginAX
 }
 
 export { actionCreators }
