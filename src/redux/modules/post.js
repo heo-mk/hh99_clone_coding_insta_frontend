@@ -42,7 +42,7 @@ const addPostAX = (post) => {
       img: post.image_url,
     }
     axios.post("http://15.164.217.16/api/contents", {
-      ..._post
+      ..._post 
     })
     .then((doc) => {
       console.log(doc)
@@ -60,25 +60,28 @@ const getPostAX = () => {
   return function (dispatch, getState){
     axios.get("http://15.164.217.16/api/contents")
       .then((res) => {
-        console.log(res.data);
 
-        let post_list = []; 
+      console.log(res.data);
+      
+      let post_list = []; 
 
-        res.data.forEach((_post) => {
-          
-          let post = {
-            id: _post.id,
-            contents: _post.contents,
-            insert_dt: _post.insertDt,
-            user_id: _post.userId,
-            img_url: _post.img,
-          };
+      res.data.forEach((_post) => {   
+        
+        // let _post = re.data;
+        let post = {
+          id: _post.id,
+          content: _post.contents,
+          insert_dt: _post.insertDt,
+          user_id: _post.userId,
+          post_image_url: _post.img,
+        };
 
-          post_list.push(post);
-        })
-        console.log(post_list);
+        post_list.push(post);
+      })
+      console.log(post_list);
 
-        dispatch(setPost(post_list));
+      dispatch(setPost(post_list));
+
     }).catch((err) => {
       window.alert("게시물을 가져오는데 문제가 있어요!")
     })
