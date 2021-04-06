@@ -42,7 +42,7 @@ const addPostAX = (post) => {
       img: post.image_url,
     }
     axios.post("http://15.164.217.16/api/contents", {
-      ..._post
+      ..._post 
     })
     .then((doc) => {
       console.log(doc)
@@ -61,10 +61,11 @@ const getPostAX = () => {
     axios.get("http://15.164.217.16/api/contents")
       .then((res) => {
       console.log(res.data);
-
+      
+      // 여기서 오류 발생
       let post_list = []; 
 
-      res.forEach((re) => {
+      res.forEach((re) => {   
         
         let _post = re.data;
         let post = {
