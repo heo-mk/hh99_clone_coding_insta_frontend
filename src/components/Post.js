@@ -24,6 +24,7 @@ import {actionCreators as commentActions} from "../redux/modules/comment"
 const Post = (props) => {
   const dispatch = useDispatch();
   const [comments, setComments ] = useState();
+  const [ is_login, setLogin] = useState();
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
@@ -37,6 +38,7 @@ const Post = (props) => {
     console.log(e.target.value)
     setComments(e.target.value)
   };
+
 
   const openDetailModal = () => {
     setDetailModal(true);
@@ -73,7 +75,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                {is_changemodal ? (
+                {is_login ? (
                   <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
                 ):(               
                   null           

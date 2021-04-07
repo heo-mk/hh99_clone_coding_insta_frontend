@@ -3,10 +3,14 @@ import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
 
 import {actionCreators as postActions} from "../redux/modules/post"
+import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux"; 
 
 
 // onClick={props.close} onClick={props.close}
 const ModalForChange = () => {
+  const dispatch = useDispatch();
+
   return ( 
     <React.Fragment>
       <Background />
@@ -16,14 +20,24 @@ const ModalForChange = () => {
         </ExitBtn>
       </ExitContainer>  
       <ModalBox>
-        {/* <EditBox onClick={() => { 
-                    history.push(`/upload/${props.id}`)}>게시물 수정</EditBox> */}
-        <EditBox>게시물 수정</EditBox>
-        <DeleteBox >게시물 삭제</DeleteBox>
+        <EditBox 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            }}>게시물 수정</EditBox>
+        <DeleteBox  
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            }}>게시물 삭제</DeleteBox>
       </ModalBox>
     </React.Fragment>
   )
 }
+// history.push(`/upload/${props.id}`)
+// dispatch(postActions.deletePostAX(props.id));
 
 const Background = styled.div`
   position: fixed;
