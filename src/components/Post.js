@@ -147,7 +147,7 @@ const Post = (props) => {
       </PostInner>
         {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
         : null}
-        {is_changemodal ? <ModalForChange close={closeChangeModal}/>        
+        {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
         : null}
     </React.Fragment>
   )

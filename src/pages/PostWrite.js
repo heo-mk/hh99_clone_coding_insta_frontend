@@ -214,5 +214,5 @@ const WriteSubmit = styled.button`
   outline: none;
   border: none;
 `
-
+//수정
 export default PostWrite;
