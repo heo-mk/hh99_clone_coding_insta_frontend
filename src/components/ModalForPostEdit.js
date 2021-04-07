@@ -21,19 +21,12 @@ const ModalForChange = (props) => {
         </ExitBtn>
       </ExitContainer>  
       <ModalBox>
-        <EditBox 
+        <CancelBox 
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            history.push(`/upload/${props.id}`)
-            }}>게시물 수정</EditBox>
-        <DeleteBox  
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log(props)
-            dispatch(postActions.deletePostAX(props.id));
-            }}>게시물 삭제</DeleteBox>
+            history.push(`/`)
+            }}>수정취소</CancelBox>
       </ModalBox>
     </React.Fragment>
   )
@@ -90,8 +83,7 @@ const ModalBox = styled.div`
   }
 `;
 
-const EditBox = styled.div`
-  border-bottom: 1px solid #DBDBDB;
+const CancelBox= styled.div`
   width: 100%;
   height: 48px;
   color: black;
@@ -102,30 +94,8 @@ const EditBox = styled.div`
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
-
-  /* @media (max-width: 614px) {
-    width: 50%;
-    height: 50%;
-  } */
 `;
 
-const DeleteBox = styled.div`
-  width: 100%;
-  height: 48px;
-  color: black;
-  font-weight: bold;
-  display: table;
-  line-height: 48px;
-  vertical-align: center;
-  text-align: center;
-  box-sizing: border-box;
-  cursor: pointer;
-
-  /* @media (max-width: 614px) {
-    width: 50%;
-    height: 50%;
-  } */
-`;
 
 
 export default ModalForChange;

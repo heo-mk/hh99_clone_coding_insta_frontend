@@ -98,7 +98,7 @@ const editPostAX = (id = null, edit = {}) => {
     // const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     // const _post = getState().post.list[_post_idx];
     // console.log(_post);
-
+    
     let _edit = {
       contents: edit.contents,
       imgUrl: edit.image_url,
@@ -121,6 +121,10 @@ const editPostAX = (id = null, edit = {}) => {
 
 const deletePostAX = (id) => {
   return function (dispatch, getState){
+    // if(!is_user_id){
+    //   console.log("게시물 작성자만 삭제할 수 있어요!")
+    //   return;
+    // }
     axios.delete(`http://15.164.217.16/api/contents/${id}`)  
       .then((res) => {
         // if(!id) {
