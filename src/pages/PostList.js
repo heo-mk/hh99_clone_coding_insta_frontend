@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 
-import Header from "../components/Header"
 import Post from "../components/Post";
 import InfinityScroll from "../shared/InfinityScroll";
 import {actionCreators as postActions} from "../redux/modules/post";
@@ -20,7 +19,6 @@ const PostList = (props) => {
 
   return (
     <React.Fragment>
-      <Header />
       <PostMainContainer>
           {post_list.map((p, idx) => {
             return <Post key={p.id} {...p}/>

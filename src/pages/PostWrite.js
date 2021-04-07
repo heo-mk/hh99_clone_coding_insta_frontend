@@ -1,8 +1,12 @@
 import React, {useState} from "react";
 
 // import Upload from "../shared/Upload"
+
 import Header from "../components/Header"
 import ModalForPostEdit from "../components/ModalForPostEdit";
+
+
+
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -82,7 +86,6 @@ const PostWrite = (props) => {
   // id, {}
   return (
     <React.Fragment>
-      <Header/>
       <WriteMainContainer>
         <WriteInner>
           <WriteBox>
@@ -165,7 +168,7 @@ const WriteHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0px 16px;
 `
 const WriteHeaderLeft = styled.div`
   display: flex;
