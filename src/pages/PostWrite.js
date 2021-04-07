@@ -1,7 +1,6 @@
 import React from "react";
 
 // import Upload from "../shared/Upload"
-import Header from "../components/Header"
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -71,7 +70,6 @@ const PostWrite = (props) => {
   // id, {}
   return (
     <React.Fragment>
-      <Header/>
       <WriteMainContainer>
         <WriteInner>
           <WriteBox>

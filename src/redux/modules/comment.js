@@ -87,7 +87,6 @@ export default handleActions(
     }), 
     [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
-
       if(idx !== -1){
         draft.list.splice(idx, 1);
       }

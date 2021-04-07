@@ -49,15 +49,16 @@ const loginAX = (id, pwd) => {
       let token = res.data
       console.log(res.data)
       localStorage.setItem("access_token", token)
+      dispatch(setUserAX(token))
   }).catch((error)=> {
     window.alert('로그인이 제대로되지 않았습니다.')
     console.log(error)
   })
 }}
 
-const setUserAX = () => {
+const setUserAX = (token) => {
   return function(dispatch){
-    const token = localStorage.getItem("access_token")
+    // const token = localStorage.getItem("access_token")
     let headers = {
       "access_token" : token,
     }
