@@ -47,10 +47,10 @@ const loginAX = (id, pwd) => {
       let token = res.data
       console.log(res.data)
       localStorage.setItem("access_token", token)
-      let headers = {
-        "access-token": token
-      }
-      axios.get("http://15.164.217.16/api/logins", headers)
+      // let headers = {
+      //   "access-token": token
+      // }
+      axios.get("http://15.164.217.16/api/users")
       .then((response) => {
         console.log(response.data)
         let user_info = {
