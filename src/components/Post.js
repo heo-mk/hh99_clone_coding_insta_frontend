@@ -16,15 +16,15 @@ import { UnfoldLessTwoTone } from "@material-ui/icons";
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux"; 
 import {actionCreators as commentActions} from "../redux/modules/comment"
 
 
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
   const [comments, setComments ] = useState();
-  const [ is_login, setLogin] = useState();
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
@@ -75,12 +75,12 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                {is_login ? (
+                <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
+                {/* {is_login ? (
                   <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
                 ):(               
-                  null           
-                )}
-                {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer"/> */}
+                  null 
+                )} */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
@@ -106,7 +106,7 @@ const Post = (props) => {
                     <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
                 <HeartBtn onClick={() => {}}>
-                  <span style={{fontSize: "24px"}}>♡</span>
+                  ♡
                 </HeartBtn>
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
@@ -129,6 +129,7 @@ const Post = (props) => {
   )
 };
 
+{/* <span style={{fontSize: "24px"}}>♡</span> */}
 export default Post;
 
 Post.defaultProps = {
@@ -318,10 +319,14 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const HeartBtn = styled.div`
+const HeartBtn = styled.button`
   height: 12px;
   width: 12px;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-right: 10px;
 `;
 
 const InsertTime = styled.div`

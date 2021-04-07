@@ -8,14 +8,15 @@ import { useDispatch } from "react-redux";
 
 
 // onClick={props.close} onClick={props.close}
-const ModalForChange = () => {
+const ModalForChange = (props) => {
   const dispatch = useDispatch();
-
+  
+  console.log(props)
   return ( 
     <React.Fragment>
-      <Background />
+      <Background onClick={props.close}/>
       <ExitContainer>
-        <ExitBtn >
+        <ExitBtn onClick={props.close}>
           <CloseIcon fontSize="large" />
         </ExitBtn>
       </ExitContainer>  
@@ -24,20 +25,18 @@ const ModalForChange = () => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-
+            history.push(`/upload/${props.id}`)
             }}>게시물 수정</EditBox>
         <DeleteBox  
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-
+            dispatch(postActions.deletePostAX(props.id));
             }}>게시물 삭제</DeleteBox>
       </ModalBox>
     </React.Fragment>
   )
 }
-// history.push(`/upload/${props.id}`)
-// dispatch(postActions.deletePostAX(props.id));
 
 const Background = styled.div`
   position: fixed;
