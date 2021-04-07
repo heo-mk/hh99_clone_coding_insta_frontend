@@ -23,9 +23,9 @@ import {actionCreators as commentActions} from "../redux/modules/comment"
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  const [comments, setComments ] = useState()
-  const [ is_modal, setDetailModal ] = useState()
-  const [ is_change, setChangeModal] = useState()
+  const [comments, setComments ] = useState();
+  const [ is_modal, setDetailModal ] = useState();
+  const [ is_change, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
@@ -36,15 +36,23 @@ const Post = (props) => {
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
-  }
+  };
 
   const openDetailModal = () => {
-    setDetailModal(true)
-  }
+    setDetailModal(true);
+  };
 
   const closeDetailModal = () => {
-    setDetailModal(false)
-  }
+    setDetailModal(false);
+  };
+
+  const openChangeModal = () => {
+    setChangeModal(true);
+  };
+
+  const closeChangeModal = () => {
+    setChangeModal(false);
+  };
 
   const addComment = () => {
     console.log(comments)
