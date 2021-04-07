@@ -198,7 +198,6 @@ const PostBox = styled.div`
   margin-bottom: 60px; 
   background: white;
   // max-width: 614px; 
-
   @media (max-width: 614px){
 
     width: 100vw;
