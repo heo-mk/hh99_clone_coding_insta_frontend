@@ -65,7 +65,7 @@ const getCommentAX = (post_id = null) => {
 
 const deleteCommentAX = (id) => {
   return function (dispatch, getState){
-    axios.delete(`http://15.164.217.16/api/contents/${id}`)  
+    axios.delete(`http://15.164.217.16/api/comment/${id}`)  
       .then((res) => {
         dispatch(deleteComment(id));
         history.replace("/");
