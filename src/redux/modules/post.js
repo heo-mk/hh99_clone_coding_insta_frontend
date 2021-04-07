@@ -28,9 +28,11 @@ const initialState = {
 
 const initialPost = {
   contents: "",
-  userId: "",
-  insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
-  img: "",
+  user_name: "",
+  insert_dt: "",
+  post_image_url: "",
+  profile_image_url: "",
+  user_id: ""
 }
 
 const addPostAX = (post) => {
@@ -39,7 +41,7 @@ const addPostAX = (post) => {
       contents: post.contents,
       insertDt: moment().format("YYYY-MM-DD HH:mm:ss"),
       userId: "",
-      img: post.image_url,
+      img: post.post_image_url,
     }
     axios.post("http://15.164.217.16/api/contents", {
       ..._post 
@@ -72,7 +74,7 @@ const getPostAX = () => {
           id: _post.id,
           content: _post.contents,
           insert_dt: _post.insertDt,
-          user_id: _post.userId,
+          user_name: _post.userId,
           post_image_url: _post.img,
         };
 

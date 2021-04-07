@@ -2,16 +2,8 @@ import React, {useState} from "react";
 
 // import Upload from "../shared/Upload"
 
-import Header from "../components/Header"
-import ModalForPostEdit from "../components/ModalForPostEdit";
 
-
-
-
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import PublishIcon from '@material-ui/icons/Publish';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +60,7 @@ const PostWrite = (props) => {
     }
     let post ={
       contents: contents,
-      image_url: image_url
+      post_image_url: image_url
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
