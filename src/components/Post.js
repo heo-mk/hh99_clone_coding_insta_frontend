@@ -25,7 +25,7 @@ const Post = (props) => {
   const dispatch = useDispatch();
   const [comments, setComments ] = useState();
   const [ is_modal, setDetailModal ] = useState();
-  const [ is_change, setChangeModal] = useState();
+  const [ is_changemodal, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
@@ -73,12 +73,12 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                {/* {change_auth ? (
-                  <MoreHorizIcon  height="14px" width="14px" cursor="pointer" onClick={}/>
+                {is_changemodal ? (
+                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
                 ):(               
                   null           
-                )} */}
-                <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
+                )}
+                {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer"/> */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
@@ -104,7 +104,7 @@ const Post = (props) => {
                     <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
                 <HeartBtn onClick={() => {}}>
-                  <span fontSize="24px">♡</span>
+                  <span style={{fontSize: "24px"}}>♡</span>
                 </HeartBtn>
             </ReplyBox>
             <InsertTime>{props.insert_dt}</InsertTime>
@@ -120,6 +120,8 @@ const Post = (props) => {
         </PostBox>
       </PostInner>
         {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
+        : null}
+        {is_changemodal ? <ModalForChange close={closeChangeModal}/>        
         : null}
     </React.Fragment>
   )
