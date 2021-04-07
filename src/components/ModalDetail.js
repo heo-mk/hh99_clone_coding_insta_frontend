@@ -185,6 +185,12 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 20;
   display:flex;
+  @media (max-width: 950px){
+    width:350px;
+  }
+  @media (max-width: 350px){
+    width: 100%
+  }
 `
 const ExitContainer = styled.div`
   z-index: 20;
@@ -204,6 +210,9 @@ const ExitBtn = styled.button`
 const ModalImg = styled.img`
   width: 600px;
   height: 600px;
+  @media (max-width: 950px){
+    display:none;
+  }
 `
 const ModalRightContainer = styled.div`
   width: 350px;

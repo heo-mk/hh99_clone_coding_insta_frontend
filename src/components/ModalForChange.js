@@ -42,7 +42,7 @@ const ModalForChange = (props) => {
 const Background = styled.div`
   position: fixed;
   top: 0;
-  opacity: 0.4;
+  opacity: 0.6;
   height: 100vh;
   width: 100vw;
   background-color: black;

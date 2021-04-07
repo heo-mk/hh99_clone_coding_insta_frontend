@@ -36,7 +36,7 @@ function App() {
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList}/>
           <Route path="/upload" exact component={PostWrite}/>
-          {/* <Route path="/upload/:id" exact component={PostWrite}/> */}
+          <Route path="/upload/:id" exact component={PostWrite}/>
           {/* <Switch>
             <Route exact component={NotFound}/>
           </Switch> */}
