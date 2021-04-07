@@ -3,6 +3,7 @@ import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
 
 import PostList from "../pages/PostList";
 import PostWrite from "../pages/PostWrite";
@@ -16,6 +17,15 @@ import styled from "styled-components";
 
 
 function App() {
+  const dispatch = useDispatch()
+  const token = localStorage.getItem("access_token")
+
+  React.useEffect(() => {
+    console.log(token)
+    if(token){
+      console.log(token)
+    }
+  },[token])
 
   return (
     <ReactContainer>

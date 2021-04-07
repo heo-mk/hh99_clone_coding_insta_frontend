@@ -147,7 +147,7 @@ const WriteHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0px 16px;
 `
 const WriteHeaderLeft = styled.div`
   display: flex;

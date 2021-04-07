@@ -59,6 +59,7 @@ const Post = (props) => {
     let comment_info = {
       comment: comments,
       user_name: '',
+      profile_url: '',
     }
 
     dispatch(commentActions.addCommentAX(comment_info, props.id))
