@@ -23,9 +23,9 @@ const PostWrite = (props) => {
   const is_edit = post_id ? true : false;
   const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
 
-  const [contents, setContents] = React.useState()
-  const [image_url, setImages] = React.useState()
-  const [is_editcancelmodal, setEditCancelModal] = useState();
+  // const [contents, setContents] = React.useState()
+  const [contents, setContents] = React.useState(_post? _post.content : "")
+  const [image_url, setImages] = React.useState(_post? _post.post_image_url : "")
   const ok_submit = contents && image_url ? true : false
 
   React.useEffect(() => {
@@ -67,10 +67,14 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
+    if(!contents || !image_url){
+      window.alert("😗빈칸을 채워주세요...ㅎㅎ")
+      return;
+    }
 
     let edit={
       contents: contents,
-      image_url: image_url
+      post_image_url: image_url
     }
     console.log(edit)
     dispatch(postActions.editPostAX(edit)) 
@@ -89,7 +93,11 @@ const PostWrite = (props) => {
             </WriteHeader>
             <WriteContent>
               <WriteUpload>
-              <TextField id="standard-basic" label="Image_url" onChange={selectFile} 
+              <TextField 
+                id="standard-basic"
+                label="Image_url"
+                type="text"
+                onChange={selectFile} 
                 value = {image_url}
               />
               </WriteUpload>
@@ -100,15 +108,22 @@ const PostWrite = (props) => {
                 id="outlined-multiline-static"
                 label="📝글 작성"
                 multiline
-                rows={4}
+                rows={6}
                 variant="outlined"
                 onChange = {changeContents}
               />
-              {ok_submit ? (
-                <WriteSubmit onClick={addPost}>게시글 작성</WriteSubmit>
-              ): (
-                <WriteSubmit style={{opacity: "0.3"}} >게시글 작성</WriteSubmit>
+              {is_edit ? (
+                <WriteSubmit onClick={editPost}>게시글 수정</WriteSubmit>
+              ) : (
+                <WriteSubmit onClick={addPost}>게시글 작성</WriteSubmit> 
               )}
+
+              {/* {ok_submit ? (
+                <WriteSubmit onClick={editPost}>게시글 수정</WriteSubmit>
+              ): (
+                <WriteSubmit style={{opacity: "0.3"}} >게시글 수정</WriteSubmit>
+              )} */}
+              
             </WriteContent>
           </WriteBox>
         </WriteInner>
@@ -203,5 +218,5 @@ const WriteSubmit = styled.button`
   outline: none;
   border: none;
 `
-//수정
+
 export default PostWrite;

@@ -103,7 +103,7 @@ const editPostAX = (id = null, edit = {}) => {
     
     let _edit = {
       contents: edit.contents,
-      imgUrl: edit.image_url,
+      imgUrl: edit.post_image_url,
     }
 
     axios.put(`http://15.164.217.16/api/contents/${id}`, {
