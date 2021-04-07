@@ -16,16 +16,17 @@ import { UnfoldLessTwoTone } from "@material-ui/icons";
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux"; 
+import { useDispatch, useSelector } from "react-redux"; 
 import {actionCreators as commentActions} from "../redux/modules/comment"
 
 
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
   const [comments, setComments ] = useState();
   const [ is_modal, setDetailModal ] = useState();
-  const [ is_change, setChangeModal] = useState();
+  const [ is_changemodal, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
   // const user_info = useSelector((state) => state.user.user);
@@ -37,6 +38,7 @@ const Post = (props) => {
     console.log(e.target.value)
     setComments(e.target.value)
   };
+
 
   const openDetailModal = () => {
     setDetailModal(true);
@@ -98,12 +100,12 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_info.user_id}</PostAuthor>
                 </PostHeaderLeft>
-                {/* {change_auth ? (
-                  <MoreHorizIcon  height="14px" width="14px" cursor="pointer" onClick={}/>
+                <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
+                {/* {is_login ? (
+                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
                 ):(               
-                  null           
+                  null 
                 )} */}
-                <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
@@ -129,7 +131,7 @@ const Post = (props) => {
                     <Reply>{props.reply_info.reply_input}</Reply>
                 </Replys>
                 <HeartBtn onClick={() => {}}>
-                  <span fontSize="24px">♡</span>
+                  ♡
                 </HeartBtn>
             </ReplyBox>
             <InsertTime>{timeForToday(props.insert_dt)}</InsertTime>
@@ -146,10 +148,13 @@ const Post = (props) => {
       </PostInner>
         {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
         : null}
+        {is_changemodal ? <ModalForChange close={closeChangeModal}/>        
+        : null}
     </React.Fragment>
   )
 };
 
+{/* <span style={{fontSize: "24px"}}>♡</span> */}
 export default Post;
 
 Post.defaultProps = {
@@ -194,7 +199,6 @@ const PostBox = styled.div`
   margin-bottom: 60px; 
   background: white;
   // max-width: 614px; 
-
   @media (max-width: 614px){
 
     width: 100vw;
@@ -339,10 +343,14 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const HeartBtn = styled.div`
+const HeartBtn = styled.button`
   height: 12px;
   width: 12px;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-right: 10px;
 `;
 
 const InsertTime = styled.div`

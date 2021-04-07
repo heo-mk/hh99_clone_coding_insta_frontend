@@ -53,7 +53,6 @@ function App() {
   //     </ConnectedRouter>
   //   </ReactContainer>
   // )
-
 }
 
 const ReactContainer = styled.div`
