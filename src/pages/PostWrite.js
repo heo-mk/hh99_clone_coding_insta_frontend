@@ -3,12 +3,7 @@ import React, {useState} from "react";
 // import Upload from "../shared/Upload"
 
 import Header from "../components/Header"
-import ModalForPostEdit from "../components/ModalForPostEdit";
 
-
-
-
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -23,6 +18,12 @@ const PostWrite = (props) => {
   const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview)
+
+  const post_list = useSelector((state) => state.post.list);
+  const post_id = props.match.params.id;
+  const is_edit = post_id ? true : false;
+  const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
+
   const [contents, setContents] = React.useState()
   const [image_url, setImages] = React.useState()
   const [is_editcancelmodal, setEditCancelModal] = useState();
@@ -35,14 +36,6 @@ const PostWrite = (props) => {
   const selectFile = (e) => {
     console.log(e.target.value)
     setImages(e.target.value)
-
-  const openEditCancelModal = () => {
-    setEditCancelModal(true);
-  };
-
-  const closeEditCancelModal = () => {
-    setEditCancelModal(false);
-  };
 
     if (!e.target.value){
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
