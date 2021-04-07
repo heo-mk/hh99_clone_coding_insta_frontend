@@ -65,52 +65,51 @@ const ExitBtn = styled.button`
 `
 
 const ModalBox = styled.div`
+  border: none;
+  outline: none;
   position: fixed;
   width: 400px;
   font-size: 14px;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #fff;
-  /* background-color: silver; */
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  align-items: center;
   z-index: 10;
 `;
 
-const MoveBox = styled.div`
-  height: 48px;
-  border-bottom: 1px solid #DBDBDB;
-  color: black;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-`;
-
 const EditBox = styled.div`
-  height: 48px;
   border-bottom: 1px solid #DBDBDB;
+  width: 100%;
+  height: 48px;
   color: black;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
+  font-weight: bold;
+  display: table;
+  line-height: 48px;
+  vertical-align: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
 `;
 
 const DeleteBox = styled.div`
+  width: 100%;
   height: 48px;
-  border-bottom: 1px solid #DBDBDB;
   color: black;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
+  font-weight: bold;
+  display: table;
+  line-height: 48px;
+  vertical-align: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
 `;
 
-const CancelBox = styled.div`
-  height: 48px;
-  color: black;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-`;
 
 export default ModalForChange;
