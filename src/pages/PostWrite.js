@@ -2,6 +2,11 @@ import React, {useState} from "react";
 
 // import Upload from "../shared/Upload"
 
+import Header from "../components/Header"
+import ModalForPostEdit from "../components/ModalForPostEdit";
+
+
+
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
