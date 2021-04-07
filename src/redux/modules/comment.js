@@ -28,10 +28,11 @@ const addCommentAX = (comment, post_id) => {
     let _comment = {
       contentsId: post_id,
       userId: comment.user_name,
+      myImg: comment.profile_url,
       comment: comment.comment,
       commentDt: moment().format("YYYY-MM-DD HH:mm:ss")
     }
-    axios.post("http://15.164.217.16/api/comment/", {
+    axios.post("http://15.164.217.16/api/comments/", {
       ..._comment
     })
     .then((res) => {
@@ -49,7 +50,7 @@ const getCommentAX = (post_id = null) => {
     if (!post_id){
       return;
     }
-    axios.get(`http://15.164.217.16/api/comment/${post_id}`)
+    axios.get(`http://15.164.217.16/api/comments/${post_id}`)
     .then((response) => {
       console.log(response)
       let comment_list = {
@@ -86,7 +87,6 @@ export default handleActions(
     }), 
     [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
-
       if(idx !== -1){
         draft.list.splice(idx, 1);
       }
