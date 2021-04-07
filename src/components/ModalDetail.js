@@ -2,9 +2,32 @@ import React, {useState} from "react";
 
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+
+import {actionCreators as commentActions} from "../redux/modules/comment"
+import { useDispatch } from "react-redux"; 
 
 const ModalDetail = (props) => {
-  console.log(props)
+  const dispatch = useDispatch();
+  const [comments, setComments ] = useState();
+  const ok_submit = comments ? true : false
+
+  const selectComment = (e) => {
+    console.log(e.target.value)
+    setComments(e.target.value)
+  }
+
+  const addComment = () => {
+    console.log(comments)
+    let comment_info = {
+      comment: comments,
+      user_name: '',
+    }
+
+    dispatch(commentActions.addCommentAX(comment_info, props.id))
+    setComments('')
+  }
+
   return(
     <React.Fragment>
       <Component onClick={props.close}/>
@@ -16,16 +39,131 @@ const ModalDetail = (props) => {
       <ModalComponent>
         <ModalImg src={props.post_image_url} />
         <ModalRightContainer>
-          <ModalRightHead>
-            <ProCircle src={props.profile_image_url} />
-            <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-          </ModalRightHead>
+          <ModalHeader>
+            <ModalLeftHeader>
+              <ProCircle src={props.profile_image_url} />
+              <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+            </ModalLeftHeader>
+            <ModalRightHeader>
+              <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
+            </ModalRightHeader>
+          </ModalHeader>
+          <ModalCmtBox>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+            <ModalCmt>
+              <ProCircle src={props.profile_image_url} />
+              <ModalCmtRight>
+                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
+                헬로뭐 다 좋아합니다.
+              </ModalCmtRight>
+            </ModalCmt>
+
+          </ModalCmtBox>
+          <ModalCmtInputBox>
+            <ModalCmtInput type="text" placeholder="댓글달기..." onChange={selectComment} />
+            {ok_submit ? <ModalUpload onClick={addComment} >게시</ModalUpload>
+            : <ModalUpload style={{opacity: "0.3"}} >게시</ModalUpload>}
+          </ModalCmtInputBox>
         </ModalRightContainer>
       </ModalComponent>
     </React.Fragment>
-
   )
-
 }
 
 const Component = styled.div`
@@ -47,9 +185,7 @@ const ModalComponent = styled.div`
   background-color: white;
   z-index: 20;
   display:flex;
-
 `
-
 const ExitContainer = styled.div`
   z-index: 20;
   position: fixed;
@@ -77,11 +213,20 @@ const ModalRightContainer = styled.div`
   justify-content: space-between;
   border-left: 1px solid #EFEFEF;
 `
-const ModalRightHead = styled.div`
+const ModalHeader = styled.div`
   padding: 16px;
   border-bottom: 1px solid #EFEFEF;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`
+const ModalLeftHeader = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const ModalRightHeader = styled.div`
+  cursor: pointer;
 `
 
 const ProCircle = styled.img`
@@ -89,12 +234,58 @@ const ProCircle = styled.img`
   width: 32px;
   border-radius: 50%;
   background-size: cover;
+  margin-right: 10px;
 `
-const ModalAuthor = styled.div`
-  margin-left: 10px;
+const ModalAuthor = styled.span`
   font-size: 14px;
-  font-weight: bold;
-
+  font-weight: 600;
+  margin-right: 5px;
 `
+
+const ModalCmtInputBox = styled.div`
+  width: 100%;
+  height: 56px;
+  padding: 0px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  border-top: 1px solid #EFEFEF;
+`
+const ModalCmtInput = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 80%;
+`
+const ModalUpload = styled.div`
+  font-size: 14px;
+  color: #3897F0;
+  cursor: pointer;
+  font-weight: 600;
+`
+const ModalCmtBox = styled.div`
+  padding: 0px 16px;
+  margin-right: 14px;
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+    };
+`
+const ModalCmt = styled.div`
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`
+const ModalCmtRight = styled.div`
+  font-size: 14px;
+`
+
+
 
 export default ModalDetail

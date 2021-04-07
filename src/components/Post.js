@@ -64,7 +64,31 @@ const Post = (props) => {
     }
 
     dispatch(commentActions.addCommentAX(comment_info, props.id))
+    setComments('')
   } 
+
+  const timeForToday = (value) => {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년전`;
+}
 
   return ( 
     <React.Fragment>
@@ -109,9 +133,9 @@ const Post = (props) => {
                   ♡
                 </HeartBtn>
             </ReplyBox>
-            <InsertTime>{props.insert_dt}</InsertTime>
+            <InsertTime>{timeForToday(props.insert_dt)}</InsertTime>
             <CommentInputBox>
-                <CommentInput text="text" placeholder="댓글달기..." onChange={selectComment}  ></CommentInput>
+                <CommentInput type="text" placeholder="댓글달기..." onChange={selectComment} value={comments}  ></CommentInput>
                 {ok_submit ? (
                   <UploadBtn onClick={addComment} >게시</UploadBtn>
                 ):(               
