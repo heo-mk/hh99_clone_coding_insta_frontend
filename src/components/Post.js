@@ -148,11 +148,7 @@ const Post = (props) => {
       </PostInner>
         {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
         : null}
-<<<<<<< HEAD
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
-=======
-        {is_changemodal ? <ModalForChange close={closeChangeModal} {...props} />        
->>>>>>> 93899511a965f09a289e8d966157efa8480c2491
         : null}
     </React.Fragment>
   )

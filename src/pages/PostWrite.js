@@ -94,12 +94,6 @@ const PostWrite = (props) => {
                 <WriteProfile src={props.profile_image_url} />
                 <PostAuthor>{props.user_name}</PostAuthor>
               </WriteHeaderLeft>
-              {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openEditCancelModal}/> */}
-                {/* {is_login ? (
-                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openEditCancelModal}/>
-                ):(               
-                  null 
-                )} */}
             </WriteHeader>
             <WriteContent>
               <WriteUpload>

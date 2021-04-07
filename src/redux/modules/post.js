@@ -17,7 +17,7 @@ const LOADING = "LOADING";
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))   //paging은 나중에 넣기
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post) => ({post}));
-const deletePost = createAction(DELETE_POST, (post) => ({post}));
+const deletePost = createAction(DELETE_POST, (id) => ({id}));
 const loading = createAction(LOADING, (post) => ({post}));
 
 const initialState = {
@@ -162,11 +162,18 @@ export default handleActions(
       draft.list[idx] = {...draft.list[idx], ...action.payload.post}
     }),
     [DELETE_POST]: (state, action) => produce(state, (draft) => {
-      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+      // let idx = draft.list.findIndex((p) => p.id === action.payload.id);
 
-      if(idx !== -1){
-        draft.list.splice(idx, 1);
-      }
+      // if(idx !== -1){
+      //   draft.list.splice(idx, 1);
+      //   return [...draft.list, ]
+      // }
+      draft.list = draft.list.filter((r, idx) => {
+        if(r.id !== action.payload.id){
+          console.log(r.id)
+          return [...draft.list, r]
+        }
+      })
     }),
   },
   initialState
