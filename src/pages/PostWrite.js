@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 // import Upload from "../shared/Upload"
 import Header from "../components/Header"
+import ModalForPostEdit from "../components/ModalForPostEdit";
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -20,6 +21,7 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview)
   const [contents, setContents] = React.useState()
   const [image_url, setImages] = React.useState()
+  const [is_editcancelmodal, setEditCancelModal] = useState();
   const ok_submit = contents && image_url ? true : false
 
   React.useEffect(() => {
@@ -29,6 +31,14 @@ const PostWrite = (props) => {
   const selectFile = (e) => {
     console.log(e.target.value)
     setImages(e.target.value)
+
+  const openEditCancelModal = () => {
+    setEditCancelModal(true);
+  };
+
+  const closeEditCancelModal = () => {
+    setEditCancelModal(false);
+  };
 
     if (!e.target.value){
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -81,7 +91,12 @@ const PostWrite = (props) => {
                 <WriteProfile src={props.profile_image_url} />
                 <PostAuthor>{props.user_name}</PostAuthor>
               </WriteHeaderLeft>
-              <MoreHorizIcon height="14px" width="14px" />
+              {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openEditCancelModal}/> */}
+                {/* {is_login ? (
+                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openEditCancelModal}/>
+                ):(               
+                  null 
+                )} */}
             </WriteHeader>
             <WriteContent>
               <WriteUpload>
@@ -109,6 +124,8 @@ const PostWrite = (props) => {
           </WriteBox>
         </WriteInner>
       </WriteMainContainer>
+        {/* {is_editcancelmodal ? <ModalForPostEdit close={closeEditCancelModal}/>        
+        : null} */}
     </React.Fragment>
   )
 
