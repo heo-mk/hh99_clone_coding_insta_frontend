@@ -4,6 +4,8 @@ import { actionCreators as userActions } from "../redux/modules/user"
 import { actionCreators as imageActions } from "../redux/modules/image"
 import { useDispatch, useSelector } from "react-redux";
 
+import ProfileUpload from "../shared/ProfileUpload"
+
 import { emailCheck } from "../shared/common"
 import ImgTitle from "../instagramLogo.png";
 import styled from 'styled-components';
@@ -11,7 +13,6 @@ import styled from 'styled-components';
 const SignUp = () => {
   const dispatch = useDispatch()
   const profile_preview = useSelector((state) => state.image.profile_preview)
-  const [image_url, setImages] = useState()
   const [id, setId] = useState('')
   const [pwd, setPwd] = useState('')
   const [pwdConfirm, setConfirmedPwd] = useState('') 
@@ -50,24 +51,13 @@ const SignUp = () => {
       return;
     }
     
-    dispatch(userActions.signupAX(id, user_name, pwd, image_url))
+    dispatch(userActions.signupFB(id, user_name, pwd))
 
   }
 
-  const selectFile = (e) => {
-    console.log(e.target.value)
-    setImages(e.target.value)
-
-    if (!e.target.value){
-      dispatch(imageActions.profilePreview("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"))
-      return
-    }
-    dispatch(imageActions.profilePreview(e.target.value))
-  }
 
   const ImageError = () => {
     window.alert('잘못된 이미지 주소입니다.😐')
-    setImages("")
     dispatch(imageActions.profilePreview("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"))
   }
   
@@ -82,7 +72,7 @@ const SignUp = () => {
         <ProfileImg src={profile_preview ? profile_preview : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBjZn8mOw7F4rtWWKbEIIHOr_w_GAeHiXPgA&usqp=CAU"} 
           onError={ImageError}
         />
-        <SignupInput placeholder="Profile Image Url" onChange={selectFile} value = {image_url} />
+        <ProfileUpload/>
         <SignupInput placeholder="Email" onChange={submitId} />
         <SignupInput placeholder="User Name" onChange={submitName} />
         <SignupInput placeholder="Password" onChange={submitPwd} type="password" />
