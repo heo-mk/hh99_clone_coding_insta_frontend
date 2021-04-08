@@ -1,5 +1,9 @@
 {
   "projects": {
+<<<<<<< HEAD
     "default": "react-clonecoding"
+=======
+    "default": "instagram-bradlee"
+>>>>>>> bc6e8c52b30bcc02b58e763487523a3e17d985bf
   }
 }

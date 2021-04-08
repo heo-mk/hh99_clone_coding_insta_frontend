@@ -46,11 +46,11 @@ const Background = styled.div`
   height: 100vh;
   width: 100vw;
   background-color: black;
-  z-index: 10;
+  z-index: 30;
 `;
 
 const ExitContainer = styled.div`
-  z-index: 20;
+  z-index: 30;
   position: fixed;
   top: 0;
   right: 0;
@@ -82,7 +82,7 @@ const ModalBox = styled.div`
   align-items: center;
   box-sizing: border-box;
   align-items: center;
-  z-index: 10;
+  z-index: 100;
 
   @media (max-width: 614px) {
     width: 50%;

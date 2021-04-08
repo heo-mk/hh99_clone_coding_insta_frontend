@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 import {actionCreators as commentActions} from "../redux/modules/comment"
 import { useDispatch } from "react-redux"; 
@@ -45,9 +46,12 @@ const ModalDetail = (props) => {
               <ProCircle src={props.profile_image_url} />
               <ModalAuthor>{props.user_name}</ModalAuthor>
             </ModalLeftHeader>
-            <ModalRightHeader>
-              <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
-            </ModalRightHeader>
+            {props.user_id === props.is_me? 
+              <ModalRightHeader onClick={props.openChangeModal} >
+                <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
+              </ModalRightHeader> 
+            : null}
+            
           </ModalHeader>
           <ModalCmtBox>
             {props.is_comment ? 
@@ -55,8 +59,19 @@ const ModalDetail = (props) => {
               return <ModalCmt>
                       <ProCircle src={c.profile_url} />
                       <ModalCmtRight>
-                        <ModalAuthor>{c.user_name}</ModalAuthor>
+                        <div>
+                          <ModalAuthor>{c.user_name}</ModalAuthor>
                             {c.comment}
+                        </div>
+                        {c.user_name === props.user_info.user_name ? 
+                          <CmtDeleteBtn onClick={() => {
+                            props.deleteComment(c.id)
+                          }}>
+                            <DeleteForeverIcon/>
+                          </CmtDeleteBtn>
+                        : null
+                        }
+                        
                       </ModalCmtRight>
                     </ModalCmt>
             })
@@ -65,7 +80,7 @@ const ModalDetail = (props) => {
             
           </ModalCmtBox>
           <ModalCmtInputBox>
-            <ModalCmtInput type="text" placeholder="댓글달기..." onChange={selectComment} />
+            <ModalCmtInput type="text" placeholder="댓글달기..." onChange={selectComment} value={comments} />
             {ok_submit ? <ModalUpload onClick={addComment} >게시</ModalUpload>
             : <ModalUpload style={{opacity: "0.3"}} >게시</ModalUpload>}
           </ModalCmtInputBox>
@@ -184,7 +199,7 @@ const ModalUpload = styled.div`
 `
 const ModalCmtBox = styled.div`
   padding: 0px 16px;
-  margin-right: 14px;
+  margin-right: 0px;
   display: flex;
   flex-direction: column;
   height: 480px;
@@ -201,9 +216,24 @@ const ModalCmt = styled.div`
   margin-bottom: 10px;
 `
 const ModalCmtRight = styled.div`
+  width: 100%;
   font-size: 14px;
+  display: flex;
+  justify-content: space-between;
 `
-
+const CmtDeleteBtn = styled.button`
+  height: 12px;
+  width: 12px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-right: 15px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  };
+`
 
 
 export default ModalDetail
