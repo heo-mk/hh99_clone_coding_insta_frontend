@@ -7,14 +7,11 @@ import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import { UnfoldLessTwoTone } from "@material-ui/icons";
-
-import { actionCreators as postActions } from "../redux/modules/post";
 
 import Sample_img from '../shared/dragon.jpg';
 
@@ -31,10 +28,14 @@ const Post = (props) => {
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
+
   const is_me = useSelector((state) => state.user.user.user_id);
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
+  const idx = props.like_id.findIndex((l) => l === user_info.uid);
+  const is_like = idx !== -1 ? true : false;
+
 
   const idx = props.like_id.findIndex((l) => l === user_info.user_id);
   const is_like = idx !== -1 ? true : false
@@ -75,7 +76,11 @@ const Post = (props) => {
     dispatch(postActions.editLikeAX(post, post_id))
   }
 
-  
+
+
+
+
+
 
   React.useEffect(() => {
     dispatch(commentActions.getCommentAX(props.id))
@@ -114,12 +119,6 @@ const Post = (props) => {
     dispatch(commentActions.addCommentAX(comment_info, props.id))
     setComments('')
   } 
-
-  const deleteComment = (id) => {
-    console.log(id)
-    console.log("하이")
-    dispatch(commentActions.deleteCommentAX(id, props.id))
-  }
 
   const timeForToday = (value) => {
     const today = new Date();
@@ -163,11 +162,9 @@ const Post = (props) => {
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
-                  {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={likeSubmit} />
-                  : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={dislikeSubmit} />
-                  }                  
-                  <CloudQueueIcon padding-left="16px" padding-right="16px"/>
-                  <SendIcon padding-left="16px"/>
+                  <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
+                  <CloudQueueIcon padding-left="16px" padding-right="16px" cursor="pointer"/>
+                  <SendIcon padding-left="16px" cursor="pointer"/>
                 </ThreeIcons>
                 <BookmarkBorderIcon cursor="pointer"/>
             </BottomIcons>
@@ -187,9 +184,9 @@ const Post = (props) => {
                           <Reply>{c.comment}</Reply>
                         </Replys>
                           {c.user_name === user_info.user_name ? 
-                            <DeleteBtn onClick={() => {deleteComment(c.id)} }>
+                            <HeartBtn onClick={() => {}}>
                               ❌
-                            </DeleteBtn>                          
+                            </HeartBtn>                          
                           : null }
                             
                         </ReplyBox>
@@ -408,7 +405,7 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const DeleteBtn = styled.button`
+const HeartBtn = styled.button`
   height: 12px;
   width: 12px;
   cursor: pointer;
