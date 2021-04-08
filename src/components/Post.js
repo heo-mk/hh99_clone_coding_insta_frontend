@@ -6,6 +6,8 @@ import ModalForChange from "./ModalForChange";
 import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
@@ -13,6 +15,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import { UnfoldLessTwoTone } from "@material-ui/icons";
 
+import { actionCreators as postActions } from "../redux/modules/post";
 import Sample_img from '../shared/dragon.jpg';
 
 import { history } from "../redux/configureStore";
@@ -33,13 +36,9 @@ const Post = (props) => {
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
-  const idx = props.like_id.findIndex((l) => l === user_info.uid);
-  const is_like = idx !== -1 ? true : false;
-
-
   const idx = props.like_id.findIndex((l) => l === user_info.user_id);
-  const is_like = idx !== -1 ? true : false
-
+  const is_like = idx !== -1 ? true : false;
+  console.log(props.like_id)
   const likeSubmit = () => {
     if(!is_login){
       window.alert("😀로그인 해야 할 수 있어요!")
@@ -54,6 +53,12 @@ const Post = (props) => {
     let cnt = props.like_cnt + 1;
     
     let post = {
+      userId: props.user_id,
+      userName: props.user_name,
+      contents: props.content,
+      img: props.post_image_url,
+      myImg: props.profile_image_url,
+      insertDt: props.insert_dt,
       likeCnt : cnt,
       likeId : like_id
     }
@@ -70,6 +75,12 @@ const Post = (props) => {
     })
     let cnt = props.like_cnt - 1;
     let post = {
+      userId: props.user_id,
+      userName: props.user_name,
+      contents: props.content,
+      img: props.post_image_url,
+      myImg: props.profile_image_url,
+      insertDt: props.insert_dt,
       likeCnt : cnt,
       likeId : like_id
     }
@@ -114,6 +125,12 @@ const Post = (props) => {
     dispatch(commentActions.addCommentAX(comment_info, props.id))
     setComments('')
   } 
+
+  const deleteComment = (id) => {
+    console.log(id)
+    console.log("하이")
+    dispatch(commentActions.deleteCommentAX(id, props.id))
+  }
 
   const timeForToday = (value) => {
     const today = new Date();
@@ -181,9 +198,9 @@ const Post = (props) => {
                           <Reply>{c.comment}</Reply>
                         </Replys>
                           {c.user_name === user_info.user_name ? 
-                            <HeartBtn onClick={() => {deleteComment(c.id)} }>
-                              ❌
-                            </HeartBtn>                          
+                            <DeleteBtn onClick={() => {deleteComment(c.id)} }>
+                              <DeleteForeverIcon/>
+                            </DeleteBtn>                          
                           : null }
                             
                         </ReplyBox>
@@ -402,14 +419,19 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const HeartBtn = styled.button`
+const DeleteBtn = styled.button`
   height: 12px;
   width: 12px;
   cursor: pointer;
   background-color: transparent;
   border: none;
   outline: none;
-  margin-right: 10px;
+  margin-right: 15px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+
 `;
 
 const InsertTime = styled.div`

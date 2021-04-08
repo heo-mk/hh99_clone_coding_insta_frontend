@@ -7,6 +7,7 @@ import { history } from "../configureStore"
 
 import "moment";
 import moment from "moment";
+import { RepeatOneSharp } from "@material-ui/icons";
 
 
 const SET_POST = "SET_POST";
@@ -25,7 +26,9 @@ const loading = createAction(LOADING, (post) => ({post}));
 const editLike = createAction(EDIT_LIKE, (post, post_id) => ({post, post_id}))
 
 const initialState = {
-  list: [],
+  list: [
+    
+  ],
   paging: { start: null, next: null, size: 3 },
   is_loading: false,
 }
@@ -78,7 +81,7 @@ const addPostAX = (post) => {
           contents: post.contents,
           insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
           like_cnt: 0,
-          like_id: [],
+          like_id: ['a'],
         }
         dispatch(addPost(post_list))
         dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -186,8 +189,13 @@ const editLikeAX = (post, post_id) => {
     console.log(post, post_id)
     axios.put(`http://15.164.217.16/api/contents/${post_id}`, {
       ...post
-    }).then(() => {
-      dispatch(editLike(post, post_id))
+    }).then((response) => {
+      let _post = {
+        like_id: response.data.likeId,
+        like_cnt : response.data.likeCnt,
+      }
+      
+      dispatch(editLike(_post, post_id))
     })
   }
 
