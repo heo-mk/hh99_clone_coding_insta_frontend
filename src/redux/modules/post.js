@@ -14,12 +14,15 @@ const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
 const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
+const EDIT_LIKE = "EDIT_LIKE"
+
 
 const setPost = createAction(SET_POST, (post_list) => ({post_list}))   //paging은 나중에 넣기
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
 const deletePost = createAction(DELETE_POST, (id) => ({id}));
 const loading = createAction(LOADING, (post) => ({post}));
+const editLike = createAction(EDIT_LIKE, (post, post_id) => ({post, post_id}))
 
 const initialState = {
   list: [],
@@ -33,7 +36,9 @@ const initialPost = {
   insert_dt: "",
   post_image_url: "",
   profile_image_url: "",
-  user_id: ""
+  user_id: "",
+  like_cnt: 0,
+  like_id: [],
 }
 
 const addPostAX = (post) => {
@@ -49,6 +54,8 @@ const addPostAX = (post) => {
     let _post = {
       contents: post.contents,
       insertDt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      likeCnt: 0,
+      likeId: [],
     };
     const _image = getState().image.preview;
 
@@ -103,6 +110,8 @@ const getPostAX = () => {
           post_image_url: _post.img,
           profile_image_url: _post.myImg,
           user_id: _post.userId,
+          like_cnt: _post.likeCnt,
+          like_id: _post.likeId,
         };
 
         post_list.unshift(post);
@@ -138,7 +147,6 @@ const editPostAX = (id, post) => {
         .then((response) => {
           console.log(response)
           dispatch(editPost(id, {..._edit}))
-          // dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
           history.replace("/")
         });
 
@@ -161,7 +169,6 @@ const editPostAX = (id, post) => {
           console.log(response)
           let edit_list = {..._edit, post_image_url: url}
           dispatch(editPost(id , edit_list))
-          // dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
           history.replace("/")
         });
         }).catch((err) => {
@@ -172,18 +179,22 @@ const editPostAX = (id, post) => {
   }
 }
 
+const editLikeAX = (post, post_id) => {
+  return function (dispatch) {
+    axios.put(`http://15.164.217.16/api/contents/${post_id}`, {
+      ...post
+    }).then(() => {
+      dispatch(editLike(post, post_id))
+    })
+  }
+
+}
+
+
 const deletePostAX = (id) => {
   return function (dispatch, getState){
-    // if(!is_user_id){
-    //   console.log("게시물 작성자만 삭제할 수 있어요!")
-    //   return;
-    // }
     axios.delete(`http://15.164.217.16/api/contents/${id}`)  
       .then((res) => {
-        // if(!id) {
-        //   window.alert("게시물을 삭제할 권한이 없습니다!")  // 처리가 된 것.
-        //   return;
-        // }
         dispatch(deletePost(id));
         history.replace("/");
       }).catch((err) => {
@@ -215,12 +226,6 @@ export default handleActions(
       draft.list[idx] = {...draft.list[idx], ...action.payload.post}
     }),
     [DELETE_POST]: (state, action) => produce(state, (draft) => {
-      // let idx = draft.list.findIndex((p) => p.id === action.payload.id);
-
-      // if(idx !== -1){
-      //   draft.list.splice(idx, 1);
-      //   return [...draft.list, ]
-      // }
       draft.list = draft.list.filter((r, idx) => {
         if(r.id !== action.payload.id){
           console.log(r.id)
@@ -228,6 +233,10 @@ export default handleActions(
         }
       })
     }),
+    [EDIT_LIKE]: (state, action) => produce(state, (draft) => {
+      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+      draft.list[idx] = { ...draft.list[idx], ...action.payload.post }
+    })
   },
   initialState
 )
@@ -238,6 +247,7 @@ const actionCreators = {
   getPostAX,
   editPost,
   editPostAX,
+  editLikeAX,
   deletePost,
   deletePostAX,
 }

@@ -15,7 +15,7 @@ const LOADING = "LOADING";
 const setComment = createAction(SET_COMMENT, (comment_list, post_id) => ({comment_list, post_id}))
 const addComment = createAction(ADD_COMMENT, (comment, post_id) => ({ comment, post_id }));
 const editComment = createAction(EDIT_COMMENT, (comment) => ({comment}));
-const deleteComment = createAction(DELETE_COMMENT, (comment) => ({comment}));
+const deleteComment = createAction(DELETE_COMMENT, (id, post_id) => ({id, post_id}));
 const loading = createAction(LOADING, (comment) => ({comment}));
 
 const initialState = {
@@ -38,8 +38,8 @@ const addCommentAX = (comment, post_id) => {
       ..._comment
     })
     .then((res) => {
-      console.log(res)
-      let comment_list = {...comment, id: res.id}
+      console.log(res.data)
+      let comment_list = {...comment, id: res.data.id}
       dispatch(addComment(comment_list, post_id))
     }).catch((err) => {
       console.log(err.response)
@@ -81,12 +81,11 @@ const getCommentAX = (post_id = null) => {
   }
 }
 
-const deleteCommentAX = (id) => {
+const deleteCommentAX = (id, post_id) => {
   return function (dispatch, getState){
-    axios.delete(`http://15.164.217.16/api/comment/${id}`)  
+    axios.delete(`http://15.164.217.16/api/comments/${id}`)  
       .then((res) => {
-        dispatch(deleteComment(id));
-        history.replace("/");
+        dispatch(deleteComment(id, post_id));
       }).catch((err) => {
         window.alert("게시물 삭제에 문제가 있어요!")
       })
@@ -107,9 +106,9 @@ export default handleActions(
       draft.list[action.payload.post_id] = action.payload.comment_list
     }), 
     [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {
-      let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
+      let idx = draft.list[action.payload.post_id].findIndex((p) => p.id === action.payload.id);
       if(idx !== -1){
-        draft.list.splice(idx, 1);
+        draft.list[action.payload.post_id].splice(idx, 1);
       }
     }), 
   },
