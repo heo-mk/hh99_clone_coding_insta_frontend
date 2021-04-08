@@ -20,12 +20,14 @@ import { apiKey } from "./firebase";
 
 function App() {
   const dispatch = useDispatch()
-  const _local_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  // const is_local = 
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
   const is_login = useSelector((state) => state.user.is_login) 
-
+  
   React.useEffect(() => {
-    dispatch(userActions.loginCheckFB())
+    if(is_session){
+      dispatch(userActions.loginCheckFB())
+    }
   },[])
 
   if (is_login){

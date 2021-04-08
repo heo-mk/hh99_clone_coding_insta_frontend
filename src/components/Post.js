@@ -28,18 +28,60 @@ const Post = (props) => {
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
-  // const post_writer = useSelector((state) => state.post.list.user_id);
+
   const is_me = useSelector((state) => state.user.user.user_id);
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
-
   const idx = props.like_id.findIndex((l) => l === user_info.uid);
   const is_like = idx !== -1 ? true : false;
 
-  console.log(comment_list);
-  console.log(is_me);
-  
+
+  const idx = props.like_id.findIndex((l) => l === user_info.user_id);
+  const is_like = idx !== -1 ? true : false
+
+  const likeSubmit = () => {
+    if(!is_login){
+      window.alert("😀로그인 해야 할 수 있어요!")
+      return
+    }
+    let like_id;
+    if(props.like_id.length === 0){
+      like_id = [user_info.user_id];
+    } else {
+      like_id = [...props.like_id, user_info.user_id]; 
+    }
+    let cnt = props.like_cnt + 1;
+    
+    let post = {
+      like_cnt : cnt,
+      like_id : like_id
+    }
+    let post_id = props.id;
+    dispatch(postActions.editLikeAX(post, post_id))
+  }
+
+  const dislikeSubmit = () => {
+    let like_id = props.like_id.filter((l, idx) => {
+      if(l !== user_info.user_id){
+        return [...like_id, l]
+      }
+    })
+    let cnt = props.like_cnt - 1;
+    let post = {
+      like_cnt : cnt,
+      like_id : like_id
+    }
+    let post_id = props.id;
+    dispatch(postActions.editLikeAX(post, post_id))
+  }
+
+
+
+
+
+
+
   React.useEffect(() => {
     dispatch(commentActions.getCommentAX(props.id))
   },[])
@@ -166,7 +208,7 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
-        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} />        
+        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} user_info={user_info} />        
         : null}
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
         : null}
