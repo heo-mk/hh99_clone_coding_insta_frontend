@@ -38,7 +38,8 @@ const Post = (props) => {
   const is_comment = comment_list ? true : false
   const idx = props.like_id.findIndex((l) => l === user_info.user_id);
   const is_like = idx !== -1 ? true : false;
-  console.log(props.like_id)
+
+
   const likeSubmit = () => {
     if(!is_login){
       window.alert("😀로그인 해야 할 수 있어요!")
@@ -68,8 +69,10 @@ const Post = (props) => {
   }
 
   const dislikeSubmit = () => {
-    let like_id = props.like_id.filter((l, idx) => {
+    let like_id = []
+    like_id = props.like_id.filter((l, idx) => {
       if(l !== user_info.user_id){
+        console.log(like_id)
         return [...like_id, l]
       }
     })
@@ -222,7 +225,7 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
-        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} user_info={user_info} />        
+        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} user_info={user_info} deleteComment={deleteComment} is_me={is_me} openChangeModal={openChangeModal}  />        
         : null}
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
         : null}
