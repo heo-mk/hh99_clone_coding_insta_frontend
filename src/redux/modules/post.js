@@ -60,11 +60,12 @@ const addPostAX = (post) => {
       snapshot.ref.getDownloadURL()
       .then((url) => {
         axios.post("http://15.164.217.16/api/contents", {
-      ..._post,  img : url, ...user_info
-      }).then((doc) => {
-        console.log(doc)
+      ..._post,  img : url, userName: user_info.user_name,
+      userId: user_info.user_id, myImg: user_info.profile_url,
+      }).then((response) => {
+        console.log(response)
         let post_list = { 
-          id: doc.data.id, 
+          id: response.data.id, 
           post_image_url : url, 
           ...user_info,
           contents: post.contents,
@@ -98,8 +99,10 @@ const getPostAX = () => {
           id: _post.id,
           content: _post.contents,
           insert_dt: _post.insertDt,
-          user_name: _post.userId,
+          user_name: _post.userName,
           post_image_url: _post.img,
+          profile_image_url: _post.myImg,
+          user_id: _post.userId,
         };
 
         post_list.push(post);

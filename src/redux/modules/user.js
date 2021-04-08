@@ -60,8 +60,8 @@ const signupFB = (id, user_name, pwd) => {
           displayName: user_name,
           photoURL: url,
         })
-        history.push('/')
-      })
+          history.push('/')
+      })        
       }).catch((error) => {
         console.log(error)
         window.alert("회원가입이 정상적으로 이루워지지 않습니다.")

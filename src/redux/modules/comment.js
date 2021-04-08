@@ -25,13 +25,15 @@ const initialState = {
 
 const addCommentAX = (comment, post_id) => {
   return function (dispatch, getState) {
+    console.log(comment)
     let _comment = {
       contentsId: post_id,
       userId: comment.user_name,
-      myImg: comment.profile_url,
       comment: comment.comment,
+      myImg: comment.profile_url,
       commentDt: moment().format("YYYY-MM-DD HH:mm:ss")
     }
+    console.log(_comment)
     axios.post("http://15.164.217.16/api/comments/", {
       ..._comment
     })
@@ -40,6 +42,7 @@ const addCommentAX = (comment, post_id) => {
       let comment_list = {...comment, id: res.id}
       dispatch(addComment(comment_list, post_id))
     }).catch((err) => {
+      console.log(err.response)
       window.alert("댓글 작성에 문제가 있어요!")
     }) 
   }
@@ -56,6 +59,9 @@ const getCommentAX = (post_id = null) => {
       let comment_list = {
         comment: response.comment,
         user_name: response.userId,
+        profile_url: response.myImg,
+        comment_dt: response.commentDt,
+        id: response.id,
       }
       dispatch(setComment(comment_list, post_id))
     }).catch((error) => {
@@ -80,6 +86,10 @@ const deleteCommentAX = (id) => {
 export default handleActions(
   {
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
+      if(!draft.list[action.payload.post_id]){
+        draft.list[action.payload.post_id] = [action.payload.comment]
+        return
+      }
       draft.list[action.payload.post_id].unshift(action.payload.comment)
     }),
     [SET_COMMENT]: (state, action) => produce(state, (draft) => {

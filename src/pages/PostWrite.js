@@ -17,37 +17,25 @@ const PostWrite = (props) => {
   const dispatch = useDispatch()
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview)
-
-
+  const user_info = useSelector((state) => state.user.user)
+  const [contents, setContents] = React.useState()
+  const [is_editcancelmodal, setEditCancelModal] = useState();
+  const ok_submit = contents ? true : false
   const post_list = useSelector((state) => state.post.list);
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
   const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
 
-  // const [contents, setContents] = React.useState()
-  const [contents, setContents] = React.useState(_post? _post.content : "")
-  const [image_url, setImages] = React.useState(_post? _post.post_image_url : "")
-  const ok_submit = contents && image_url ? true : false
 
 
   React.useEffect(() => {
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }, [])
 
-  const selectFile = (e) => {
-    console.log(e.target.value)
-    setImages(e.target.value)
-
-    if (!e.target.value){
-      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
-      return
-    }
-    dispatch(imageActions.setPreview(e.target.value))
-  }
 
   const ImageError = () => {
     window.alert('잘못된 이미지 주소입니다.😐')
-    setImages("")
+
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }
 
@@ -56,14 +44,12 @@ const PostWrite = (props) => {
   }
 
   const addPost = () => {
-    if(!contents || !image_url){
+    if(!contents){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")
       return
     }
     let post ={
       contents: contents,
-      post_image_url: image_url,
-      user_name: user_info.user_name,
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
@@ -77,7 +63,6 @@ const PostWrite = (props) => {
 
     let edit={
       contents: contents,
-      post_image_url: image_url
     }
     console.log(edit)
     dispatch(postActions.editPostAX(edit)) 
