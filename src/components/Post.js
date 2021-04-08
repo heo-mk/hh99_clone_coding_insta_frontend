@@ -7,14 +7,11 @@ import styled from "styled-components";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import { UnfoldLessTwoTone } from "@material-ui/icons";
-
-import { actionCreators as postActions } from "../redux/modules/post";
 
 import Sample_img from '../shared/dragon.jpg';
 
@@ -31,57 +28,18 @@ const Post = (props) => {
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
-  const post_writer = useSelector((state) => state.post.list.user_id);
+  // const post_writer = useSelector((state) => state.post.list.user_id);
   const is_me = useSelector((state) => state.user.user.user_id);
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
 
-  const idx = props.like_id.findIndex((l) => l === user_info.user_id);
-  const is_like = idx !== -1 ? true : false
-
-  const likeSubmit = () => {
-    if(!is_login){
-      window.alert("😀로그인 해야 할 수 있어요!")
-      return
-    }
-    let like_id;
-    if(props.like_id.length === 0){
-      like_id = [user_info.user_id];
-    } else {
-      like_id = [...props.like_id, user_info.user_id]; 
-    }
-    let cnt = props.like_cnt + 1;
-    
-    let post = {
-      like_cnt : cnt,
-      like_id : like_id
-    }
-    let post_id = props.id;
-    dispatch(postActions.editLikeAX(post, post_id))
-  }
-
-  const dislikeSubmit = () => {
-    let like_id = props.like_id.filter((l, idx) => {
-      if(l !== user_info.user_id){
-        return [...like_id, l]
-      }
-    })
-    let cnt = props.like_cnt - 1;
-    let post = {
-      like_cnt : cnt,
-      like_id : like_id
-    }
-    let post_id = props.id;
-    dispatch(postActions.editLikeAX(post, post_id))
-  }
-
+  const idx = props.like_id.findIndex((l) => l === user_info.uid);
+  const is_like = idx !== -1 ? true : false;
 
   console.log(comment_list);
-  console.log(post_writer);
   console.log(is_me);
   
-
   React.useEffect(() => {
     dispatch(commentActions.getCommentAX(props.id))
   },[])
@@ -120,12 +78,6 @@ const Post = (props) => {
     setComments('')
   } 
 
-  const deleteComment = (id) => {
-    console.log(id)
-    console.log("하이")
-    dispatch(commentActions.deleteCommentAX(id, props.id))
-  }
-
   const timeForToday = (value) => {
     const today = new Date();
     const timeValue = new Date(value);
@@ -158,7 +110,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_name}</PostAuthor>
                 </PostHeaderLeft>
-                {post_writer === is_me?
+                {props.user_id === is_me?
                   <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> 
                   : null}
                 {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> */}
@@ -168,11 +120,9 @@ const Post = (props) => {
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
-                  {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={likeSubmit} />
-                  : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={dislikeSubmit} />
-                  }                  
-                  <CloudQueueIcon padding-left="16px" padding-right="16px"/>
-                  <SendIcon padding-left="16px"/>
+                  <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
+                  <CloudQueueIcon padding-left="16px" padding-right="16px" cursor="pointer"/>
+                  <SendIcon padding-left="16px" cursor="pointer"/>
                 </ThreeIcons>
                 <BookmarkBorderIcon cursor="pointer"/>
             </BottomIcons>
@@ -192,9 +142,9 @@ const Post = (props) => {
                           <Reply>{c.comment}</Reply>
                         </Replys>
                           {c.user_name === user_info.user_name ? 
-                            <DeleteBtn onClick={() => {deleteComment(c.id)} }>
+                            <HeartBtn onClick={() => {}}>
                               ❌
-                            </DeleteBtn>                          
+                            </HeartBtn>                          
                           : null }
                             
                         </ReplyBox>
@@ -413,7 +363,7 @@ const Reply = styled.div`
   font-size: 14px;
 `;
 
-const DeleteBtn = styled.button`
+const HeartBtn = styled.button`
   height: 12px;
   width: 12px;
   cursor: pointer;
