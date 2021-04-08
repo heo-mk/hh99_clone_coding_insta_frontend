@@ -53,10 +53,11 @@ const Post = (props) => {
     let cnt = props.like_cnt + 1;
     
     let post = {
-      like_cnt : cnt,
-      like_id : like_id
+      likeCnt : cnt,
+      likeId : like_id
     }
     let post_id = props.id;
+    console.log(post)
     dispatch(postActions.editLikeAX(post, post_id))
   }
 
@@ -68,8 +69,8 @@ const Post = (props) => {
     })
     let cnt = props.like_cnt - 1;
     let post = {
-      like_cnt : cnt,
-      like_id : like_id
+      likeCnt : cnt,
+      likeId : like_id
     }
     let post_id = props.id;
     dispatch(postActions.editLikeAX(post, post_id))
@@ -163,8 +164,8 @@ const Post = (props) => {
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
-                  {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={likeSubmit} />
-                  : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={dislikeSubmit} />
+                  {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={dislikeSubmit} />
+                  : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={likeSubmit} />
                   }                  
                   <CloudQueueIcon padding-left="16px" padding-right="16px"/>
                   <SendIcon padding-left="16px"/>

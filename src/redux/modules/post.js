@@ -77,6 +77,8 @@ const addPostAX = (post) => {
           ...user_info,
           contents: post.contents,
           insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+          like_cnt: 0,
+          like_id: [],
         }
         dispatch(addPost(post_list))
         dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -181,6 +183,7 @@ const editPostAX = (id, post) => {
 
 const editLikeAX = (post, post_id) => {
   return function (dispatch) {
+    console.log(post, post_id)
     axios.put(`http://15.164.217.16/api/contents/${post_id}`, {
       ...post
     }).then(() => {
