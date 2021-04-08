@@ -130,7 +130,7 @@ const editPostAX = (id = null, edit = {}) => {
     
     let _edit = {
       contents: edit.contents,
-      imgUrl: edit.image_url,
+      imgUrl: edit.post_image_url,
     }
 
     axios.put(`http://15.164.217.16/api/contents/${id}`, {
@@ -143,7 +143,7 @@ const editPostAX = (id = null, edit = {}) => {
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
       history.replace("/")
     }).catch((err) => {
-      window.alert("게시물 작성에 문제가 있어요!")
+      window.alert("게시물 수정에 문제가 있어요!")
     })
   }
 }

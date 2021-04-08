@@ -2,7 +2,9 @@ import React, {useState} from "react";
 
 import Upload from "../shared/Upload"
 
+import Header from "../components/Header"
 
+import PublishIcon from '@material-ui/icons/Publish';
 import TextField from '@material-ui/core/TextField';
 import styled from "styled-components";
 
@@ -19,29 +21,17 @@ const PostWrite = (props) => {
   const [contents, setContents] = React.useState()
   const [is_editcancelmodal, setEditCancelModal] = useState();
   const ok_submit = contents ? true : false
+  const post_list = useSelector((state) => state.post.list);
+  const post_id = props.match.params.id;
+  const is_edit = post_id ? true : false;
+  const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
+
+
 
   React.useEffect(() => {
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }, [])
 
-  // const selectFile = (e) => {
-  //   console.log(e.target.value)
-  //   setImages(e.target.value)
-  // }
-  const openEditCancelModal = () => {
-    setEditCancelModal(true);
-  };
-
-  const closeEditCancelModal = () => {
-    setEditCancelModal(false);
-  };
-
-    // if (!e.target.value){
-    //   dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
-    //   return
-    //   dispatch(imageActions.setPreview(e.target.value))
-    // }
-  
 
   const ImageError = () => {
     window.alert('잘못된 이미지 주소입니다.😐')
@@ -66,6 +56,10 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
+    if(!contents || !image_url){
+      window.alert("😗빈칸을 채워주세요...ㅎㅎ")
+      return;
+    }
 
     let edit={
       contents: contents,
@@ -87,9 +81,6 @@ const PostWrite = (props) => {
             </WriteHeader>
             <WriteContent>
               <WriteUpload>
-              {/* <TextField id="standard-basic" label="Image_url" onChange={selectFile} 
-                value = {image_url}
-              /> */}
               <Upload/>
               </WriteUpload>
               <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"}
@@ -99,15 +90,22 @@ const PostWrite = (props) => {
                 id="outlined-multiline-static"
                 label="📝글 작성"
                 multiline
-                rows={4}
+                rows={6}
                 variant="outlined"
                 onChange = {changeContents}
               />
-              {ok_submit ? (
-                <WriteSubmit onClick={addPost}>게시글 작성</WriteSubmit>
-              ): (
-                <WriteSubmit style={{opacity: "0.3"}} >게시글 작성</WriteSubmit>
+              {is_edit ? (
+                <WriteSubmit onClick={editPost}>게시글 수정</WriteSubmit>
+              ) : (
+                <WriteSubmit onClick={addPost}>게시글 작성</WriteSubmit> 
               )}
+
+              {/* {ok_submit ? (
+                <WriteSubmit onClick={editPost}>게시글 수정</WriteSubmit>
+              ): (
+                <WriteSubmit style={{opacity: "0.3"}} >게시글 수정</WriteSubmit>
+              )} */}
+              
             </WriteContent>
           </WriteBox>
         </WriteInner>
@@ -202,5 +200,5 @@ const WriteSubmit = styled.button`
   outline: none;
   border: none;
 `
-//수정
+
 export default PostWrite;
