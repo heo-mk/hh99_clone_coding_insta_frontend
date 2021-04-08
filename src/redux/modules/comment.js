@@ -12,11 +12,11 @@ const EDIT_COMMENT = "EDIT_COMMENT";
 const DELETE_COMMENT = "DELETE_COMMENT";
 const LOADING = "LOADING";
 
-const setComment = createAction(SET_COMMENT, (Comment_list, post_id) => ({Comment_list, post_id}))
-const addComment = createAction(ADD_COMMENT, (Comment, post_id) => ({ Comment, post_id }));
-const editComment = createAction(EDIT_COMMENT, (Comment) => ({Comment}));
-const deleteComment = createAction(DELETE_COMMENT, (Comment) => ({Comment}));
-const loading = createAction(LOADING, (Comment) => ({Comment}));
+const setComment = createAction(SET_COMMENT, (comment_list, post_id) => ({comment_list, post_id}))
+const addComment = createAction(ADD_COMMENT, (comment, post_id) => ({ comment, post_id }));
+const editComment = createAction(EDIT_COMMENT, (comment) => ({comment}));
+const deleteComment = createAction(DELETE_COMMENT, (comment) => ({comment}));
+const loading = createAction(LOADING, (comment) => ({comment}));
 
 const initialState = {
   list: {},
@@ -53,16 +53,27 @@ const getCommentAX = (post_id = null) => {
     if (!post_id){
       return;
     }
+    console.log(post_id)
     axios.get(`http://15.164.217.16/api/comments/${post_id}`)
     .then((response) => {
       console.log(response)
-      let comment_list = {
-        comment: response.comment,
-        user_name: response.userId,
-        profile_url: response.myImg,
-        comment_dt: response.commentDt,
-        id: response.id,
-      }
+
+      let comment_list = []
+
+      response.data.forEach((_post) => {
+        let comment = {
+          comment: _post.comment,
+          user_name: _post.userId,
+          profile_url: _post.myImg,
+          comment_dt: _post.commentDt,
+          id: _post.id,
+        }
+
+        comment_list.unshift(comment)
+      })
+
+      
+      console.log(comment_list)
       dispatch(setComment(comment_list, post_id))
     }).catch((error) => {
       window.alert("댓글을 불러올 수 없습니다.")
@@ -93,6 +104,7 @@ export default handleActions(
       draft.list[action.payload.post_id].unshift(action.payload.comment)
     }),
     [SET_COMMENT]: (state, action) => produce(state, (draft) => {
+      console.log(action.payload.comment_list)
       draft.list[action.payload.post_id] = action.payload.comment_list
     }), 
     [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {

@@ -56,7 +56,7 @@ const PostWrite = (props) => {
   }
 
   const editPost = () => {
-    if(!contents || !image_url){
+    if(!contents){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")
       return;
     }
