@@ -54,10 +54,11 @@ const Post = (props) => {
     let cnt = props.like_cnt + 1;
     
     let post = {
-      like_cnt : cnt,
-      like_id : like_id
+      likeCnt : cnt,
+      likeId : like_id
     }
     let post_id = props.id;
+    console.log(post)
     dispatch(postActions.editLikeAX(post, post_id))
   }
 
@@ -69,18 +70,12 @@ const Post = (props) => {
     })
     let cnt = props.like_cnt - 1;
     let post = {
-      like_cnt : cnt,
-      like_id : like_id
+      likeCnt : cnt,
+      likeId : like_id
     }
     let post_id = props.id;
     dispatch(postActions.editLikeAX(post, post_id))
   }
-
-
-
-
-
-
 
   React.useEffect(() => {
     dispatch(commentActions.getCommentAX(props.id))
@@ -162,9 +157,11 @@ const Post = (props) => {
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
-                  <FavoriteBorderIcon padding-right="16px" cursor="pointer"/>
-                  <CloudQueueIcon padding-left="16px" padding-right="16px" cursor="pointer"/>
-                  <SendIcon padding-left="16px" cursor="pointer"/>
+                  {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={dislikeSubmit} />
+                  : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={likeSubmit} />
+                  }                  
+                  <CloudQueueIcon padding-left="16px" padding-right="16px"/>
+                  <SendIcon padding-left="16px"/>
                 </ThreeIcons>
                 <BookmarkBorderIcon cursor="pointer"/>
             </BottomIcons>
@@ -184,7 +181,7 @@ const Post = (props) => {
                           <Reply>{c.comment}</Reply>
                         </Replys>
                           {c.user_name === user_info.user_name ? 
-                            <HeartBtn onClick={() => {}}>
+                            <HeartBtn onClick={() => {deleteComment(c.id)} }>
                               ❌
                             </HeartBtn>                          
                           : null }

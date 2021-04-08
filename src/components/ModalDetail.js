@@ -43,7 +43,7 @@ const ModalDetail = (props) => {
           <ModalHeader>
             <ModalLeftHeader>
               <ProCircle src={props.profile_image_url} />
-              <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
+              <ModalAuthor>{props.user_name}</ModalAuthor>
             </ModalLeftHeader>
             <ModalRightHeader>
               <MoreHorizIcon height="14px" width="14px" cursor="pointer"/>
