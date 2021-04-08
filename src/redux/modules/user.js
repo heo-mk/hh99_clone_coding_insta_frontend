@@ -83,7 +83,7 @@ const loginFB = (id, pwd) => {
               user_name: user.user.displayName,
               user_id: user.user.uid,
               profile_url: user.user.photoURL,
-            })
+            }),
           )
         }).catch((error) => {
           console.log(error);

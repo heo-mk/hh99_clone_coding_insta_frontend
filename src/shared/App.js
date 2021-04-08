@@ -41,7 +41,6 @@ function App() {
           <Route exact component={NotFound}/>
         </Switch>
 
-         
 
         </ConnectedRouter>
       </ReactContainer>
