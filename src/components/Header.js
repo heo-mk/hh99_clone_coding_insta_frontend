@@ -3,10 +3,14 @@ import styled from "styled-components"
 import ImgTitle from "../instagramLogo.png"
 import HomeIcon from '@material-ui/icons/Home';
 import CreateIcon from '@material-ui/icons/Create';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux"
+import { actionCreators as userActions } from "../redux/modules/user"
+
 
 const Header = () => {
-
+  const dispatch = useDispatch()
   return(
     <React.Fragment>
       <HeaderContainer>
@@ -15,7 +19,9 @@ const Header = () => {
             history.push('/')
           }} />
           <HeaderIcons>
-            <HomeIcon fontSize={'default'} style={{cursor: 'pointer'}} />
+            <ExitToAppIcon fontSize={'default'} style={{cursor: 'pointer'}} onClick={() => {
+              dispatch(userActions.logoutFB())
+            }} />
             <CreateIcon fontSize={'default'} style={{cursor: 'pointer'}} onClick={() => {
               history.push('/upload')
             }} />

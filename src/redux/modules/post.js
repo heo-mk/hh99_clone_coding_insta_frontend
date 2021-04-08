@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { storage } from "../../shared/firebase"
 import axios from 'axios';
 import { actionCreators as imageActions } from "./image";
 import { history } from "../configureStore"
@@ -37,23 +38,46 @@ const initialPost = {
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
+    const _user = getState().user.user
+
+    const user_info = {
+      user_name: _user.user_name,
+      user_id: _user.user_id,
+      profile_url: _user.profile_url
+    };
+
     let _post = {
       contents: post.contents,
       insertDt: moment().format("YYYY-MM-DD HH:mm:ss"),
-      userId: "",
-      img: post.post_image_url,
-    }
-    axios.post("http://15.164.217.16/api/contents", {
-      ..._post 
-    })
-    .then((doc) => {
-      console.log(doc)
-      let post_list = {..._post, id: doc.data.id}
-      dispatch(addPost(post_list))
-      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
-      history.replace("/")
-    }).catch((err) => {
-      window.alert("게시물 작성에 문제가 있어요!")
+    };
+    const _image = getState().image.preview;
+
+    const _upload = storage
+      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
+      .putString(_image, "data_url");
+
+    _upload.then((snapshot) => {
+      snapshot.ref.getDownloadURL()
+      .then((url) => {
+        axios.post("http://15.164.217.16/api/contents", {
+      ..._post,  img : url, ...user_info
+      }).then((doc) => {
+        console.log(doc)
+        let post_list = { 
+          id: doc.data.id, 
+          post_image_url : url, 
+          ...user_info,
+          contents: post.contents,
+          insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+        }
+        dispatch(addPost(post_list))
+        dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+        history.replace("/")
+      })
+      }).catch((error) => {
+        console.log(error)
+        window.alert("게시물 저장이 정상적으로 되지 않았습니다.")
+      })
     })
   }
 }

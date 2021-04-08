@@ -28,7 +28,7 @@ const Login = () => {
       window.alert('이메일 형식이 맞지 않습니다!');
       return;
     }
-    dispatch(userActions.loginAX(id, pwd))
+    dispatch(userActions.loginFB(id, pwd))
   }
 
   return(

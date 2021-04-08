@@ -19,17 +19,13 @@ import styled from "styled-components";
 
 function App() {
   const dispatch = useDispatch()
-  const token = localStorage.getItem("access_token")
   const is_login = useSelector((state) => state.user.is_login) 
 
   React.useEffect(() => {
-    console.log(token)
-    if(token){
-      console.log(token)
-    }
-  },[token])
+    dispatch(userActions.loginCheckFB())
+  },[])
 
-  // if (is_login && token){
+  if (is_login){
     return (
       <ReactContainer>
         <Header/>
@@ -44,15 +40,15 @@ function App() {
       </ReactContainer>
   
     );
-  // }
-  // return(
-  //   <ReactContainer>
-  //     <ConnectedRouter history={history}>
-  //       <Route path="/signup" exact component={SignUp} />
-  //       <Route path="/" exact component={Login} />
-  //     </ConnectedRouter>
-  //   </ReactContainer>
-  // )
+  }
+  return(
+    <ReactContainer>
+      <ConnectedRouter history={history}>
+        <Route path="/signup" exact component={SignUp} />
+        <Route path="/" exact component={Login} />
+      </ConnectedRouter>
+    </ReactContainer>
+  )
 
 }
 

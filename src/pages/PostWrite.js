@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-// import Upload from "../shared/Upload"
+import Upload from "../shared/Upload"
 
 import Header from "../components/Header"
 
@@ -18,6 +18,7 @@ const PostWrite = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview)
 
+
   const post_list = useSelector((state) => state.post.list);
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
@@ -27,6 +28,7 @@ const PostWrite = (props) => {
   const [contents, setContents] = React.useState(_post? _post.content : "")
   const [image_url, setImages] = React.useState(_post? _post.post_image_url : "")
   const ok_submit = contents && image_url ? true : false
+
 
   React.useEffect(() => {
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -60,7 +62,8 @@ const PostWrite = (props) => {
     }
     let post ={
       contents: contents,
-      post_image_url: image_url
+      post_image_url: image_url,
+      user_name: user_info.user_name,
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
@@ -79,7 +82,7 @@ const PostWrite = (props) => {
     console.log(edit)
     dispatch(postActions.editPostAX(edit)) 
   }
-  // id, {}
+
   return (
     <React.Fragment>
       <WriteMainContainer>
@@ -87,19 +90,13 @@ const PostWrite = (props) => {
           <WriteBox>
             <WriteHeader>
               <WriteHeaderLeft>
-                <WriteProfile src={props.profile_image_url} />
-                <PostAuthor>{props.user_name}</PostAuthor>
+                <WriteProfile src={user_info.profile_url} />
+                <PostAuthor>{user_info.user_name}</PostAuthor>
               </WriteHeaderLeft>
             </WriteHeader>
             <WriteContent>
               <WriteUpload>
-              <TextField 
-                id="standard-basic"
-                label="Image_url"
-                type="text"
-                onChange={selectFile} 
-                value = {image_url}
-              />
+              <Upload/>
               </WriteUpload>
               <WriteImg src={preview ? preview : "http://via.placeholder.com/400x300"}
                 onError={ImageError}
