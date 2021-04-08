@@ -190,10 +190,12 @@ const editLikeAX = (post, post_id) => {
     axios.put(`http://15.164.217.16/api/contents/${post_id}`, {
       ...post
     }).then((response) => {
+      console.log(post)
       let _post = {
-        like_id: response.data.likeId,
-        like_cnt : response.data.likeCnt,
+        like_id: post.likeId,
+        like_cnt : post.likeCnt,
       }
+      console.log(_post)
       
       dispatch(editLike(_post, post_id))
     })
