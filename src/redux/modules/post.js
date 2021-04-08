@@ -117,38 +117,34 @@ const getPostAX = () => {
   }
 }
 
-const editPostAX = (id = null, post = {}) => {
+const editPostAX = (id, post) => {
   return function (dispatch, getState){
     if(!id) {
       console.log("게시물이 없어요!")
       return;
     }
     const _image = getState().image.preview;
-    const _post_idx = getState().post.list.findIndex((p) => p.id === id);
+    const _post_idx = getState().post.list.findIndex((p) => p.id == id);
     const _post = getState().post.list[_post_idx];
-    console.log(_post);
     
     let _edit = {
       contents: post.contents,
-      img: post.post_image_url, 
     }
 
     if (_image == _post.post_image_url){
       axios.put(`http://15.164.217.16/api/contents/${id}`, {
-        ..._edit
+        ..._edit, img: _image
       })
-        .update(post)
         .then((response) => {
           console.log(response)
-          let edit_list = {..._edit, id: response.data.id}
-          dispatch(editPost(edit_list))
+          dispatch(editPost(id, {..._edit}))
           // dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
           history.replace("/")
         });
 
         return;
       } else {
-        const user_id = getState().user.user_info.user_id;
+        const user_id = getState().user.user.user_id;
         const _upload = storage
           .ref(`images/${user_id}_${new Date().getTime()}`)
           .putString(_image, "data_url");
@@ -159,12 +155,12 @@ const editPostAX = (id = null, post = {}) => {
           })
           .then((url) => {
             axios.put(`http://15.164.217.16/api/contents/${id}`, {
-              ..._edit
+              ..._edit, img: url,
           })
           .then((response) => {
           console.log(response)
-          let edit_list = {..._edit, id: response.data.id, post_image_url: url}
-          dispatch(editPost(edit_list))
+          let edit_list = {..._edit, post_image_url: url}
+          dispatch(editPost(id , edit_list))
           // dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
           history.replace("/")
         });

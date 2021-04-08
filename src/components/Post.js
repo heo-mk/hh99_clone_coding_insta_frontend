@@ -134,12 +134,13 @@ const Post = (props) => {
                           <ReplyWriter>{c.user_name}</ReplyWriter>
                           <Reply>{c.comment}</Reply>
                         </Replys>
-                        
-                        <HeartBtn onClick={() => {}}>
-                          ❌
-                        </HeartBtn>
-                        
-                      </ReplyBox>
+                          {c.user_name === user_info.user_name ? 
+                            <HeartBtn onClick={() => {}}>
+                              ❌
+                            </HeartBtn>                          
+                          : null }
+                            
+                        </ReplyBox>
               }
             }) : null }
             
