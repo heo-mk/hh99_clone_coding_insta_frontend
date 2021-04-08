@@ -17,7 +17,6 @@ const PostWrite = (props) => {
   const preview = useSelector((state) => state.image.preview)
   const user_info = useSelector((state) => state.user.user)
   const [contents, setContents] = React.useState()
-  const [image_url, setImages] = React.useState()
   const [is_editcancelmodal, setEditCancelModal] = useState();
   const ok_submit = contents ? true : false
 
@@ -25,10 +24,10 @@ const PostWrite = (props) => {
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }, [])
 
-  const selectFile = (e) => {
-    console.log(e.target.value)
-    setImages(e.target.value)
-
+  // const selectFile = (e) => {
+  //   console.log(e.target.value)
+  //   setImages(e.target.value)
+  // }
   const openEditCancelModal = () => {
     setEditCancelModal(true);
   };
@@ -37,16 +36,16 @@ const PostWrite = (props) => {
     setEditCancelModal(false);
   };
 
-    if (!e.target.value){
-      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
-      return
-    }
-    dispatch(imageActions.setPreview(e.target.value))
-  }
+    // if (!e.target.value){
+    //   dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+    //   return
+    //   dispatch(imageActions.setPreview(e.target.value))
+    // }
+  
 
   const ImageError = () => {
     window.alert('잘못된 이미지 주소입니다.😐')
-    setImages("")
+
     dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
   }
 
@@ -55,14 +54,12 @@ const PostWrite = (props) => {
   }
 
   const addPost = () => {
-    if(!contents || !image_url){
+    if(!contents){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")
       return
     }
     let post ={
       contents: contents,
-      post_image_url: image_url,
-      user_name: user_info.user_name,
     }
     console.log(post)
     dispatch(postActions.addPostAX(post))
@@ -72,7 +69,6 @@ const PostWrite = (props) => {
 
     let edit={
       contents: contents,
-      image_url: image_url
     }
     console.log(edit)
     dispatch(postActions.editPostAX(edit)) 

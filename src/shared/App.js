@@ -13,12 +13,15 @@ import Login from "../pages/Login"
 import NotFound from "../pages/NotFound";
 import Header from "../components/Header";
 import styled from "styled-components";
+import { apiKey } from "./firebase";
 
 
 
 
 function App() {
   const dispatch = useDispatch()
+  const _local_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  // const is_local = 
   const is_login = useSelector((state) => state.user.is_login) 
 
   React.useEffect(() => {
@@ -38,7 +41,6 @@ function App() {
           </Switch> */}
         </ConnectedRouter>
       </ReactContainer>
-  
     );
   }
   return(

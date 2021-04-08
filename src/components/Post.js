@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import ModalDetail from "./ModalDetail";
 import ModalForChange from "./ModalForChange";
@@ -29,11 +29,15 @@ const Post = (props) => {
   const [ is_changemodal, setChangeModal] = useState();
   // const change_auth = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
-  // const user_info = useSelector((state) => state.user.user);
+  const user_info = useSelector((state) => state.user.user);
   // const is_login = useSelector((state) => state.user.is_login);
   // const idx = props.like_id.findIndex((l) => l === user_info.uid);
   // const is_like = idx !== -1 ? true : false;
   
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentAX(props.id))
+  },[])
+
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
@@ -60,8 +64,7 @@ const Post = (props) => {
     console.log(comments)
     let comment_info = {
       comment: comments,
-      user_name: '',
-      profile_url: '',
+      user_name: user_info.user_name,
     }
 
     dispatch(commentActions.addCommentAX(comment_info, props.id))
