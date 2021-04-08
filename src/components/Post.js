@@ -27,9 +27,11 @@ const Post = (props) => {
   const [comments, setComments ] = useState();
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
-  // const change_auth = user_info.user_id === user.id ? true : false
   const ok_submit = comments ? true : false
   const user_info = useSelector((state) => state.user.user);
+  const comment_list = useSelector((state) => state.comment.list[props.id])
+  const is_comment = comment_list ? true : false
+  console.log(comment_list)
   // const is_login = useSelector((state) => state.user.is_login);
   // const idx = props.like_id.findIndex((l) => l === user_info.uid);
   // const is_like = idx !== -1 ? true : false;
@@ -102,14 +104,9 @@ const Post = (props) => {
             <PostHeader>
                 <PostHeaderLeft>
                     <ProfileCircle src={props.profile_image_url}/>
-                    <PostAuthor>{props.user_info.user_id}</PostAuthor>
+                    <PostAuthor>{props.user_name}</PostAuthor>
                 </PostHeaderLeft>
                 <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
-                {/* {is_login ? (
-                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
-                ):(               
-                  null 
-                )} */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
@@ -125,19 +122,30 @@ const Post = (props) => {
             <BottomLike>좋아요 {props.like_cnt}개</BottomLike>
             <BottomAuthorCommentBox>
                 <AuthorCommentBox>
-                    <Author>{props.user_info.user_id}</Author>
+                    <Author>{props.user_name}</Author>
                     <Comment>{props.content}</Comment>
                 </AuthorCommentBox>
             </BottomAuthorCommentBox>
-            <ReplyBox>
-                <Replys>
-                    <ReplyWriter>{props.reply_info.user_id}</ReplyWriter>
-                    <Reply>{props.reply_info.reply_input}</Reply>
-                </Replys>
-                <HeartBtn onClick={() => {}}>
-                  ♡
-                </HeartBtn>
-            </ReplyBox>
+            {is_comment ?  
+            comment_list.map((c, idx) => {
+              if(idx < 2){
+                return <ReplyBox>
+                        <Replys>
+                          <ReplyWriter>{c.user_name}</ReplyWriter>
+                          <Reply>{c.comment}</Reply>
+                        </Replys>
+                        
+                        <HeartBtn onClick={() => {}}>
+                          ❌
+                        </HeartBtn>
+                        
+                      </ReplyBox>
+              }
+            }) : null }
+            
+
+
+            
             <InsertTime>{timeForToday(props.insert_dt)}</InsertTime>
             <CommentInputBox>
                 <CommentInput type="text" placeholder="댓글달기..." onChange={selectComment} value={comments}  ></CommentInput>
@@ -150,7 +158,7 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
-        {is_modal ? <ModalDetail close={closeDetailModal} {...props} />        
+        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} />        
         : null}
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
         : null}

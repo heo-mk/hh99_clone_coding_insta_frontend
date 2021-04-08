@@ -11,7 +11,7 @@ const ModalDetail = (props) => {
   const dispatch = useDispatch();
   const [comments, setComments ] = useState();
   const ok_submit = comments ? true : false
-
+  console.log(props)
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
@@ -49,111 +49,19 @@ const ModalDetail = (props) => {
             </ModalRightHeader>
           </ModalHeader>
           <ModalCmtBox>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-            <ModalCmt>
-              <ProCircle src={props.profile_image_url} />
-              <ModalCmtRight>
-                <ModalAuthor>{props.user_info.user_id}</ModalAuthor>
-                안녕하세요 저는 이대호입니다. 제가 좋아하는음식은닭고기삼겹살
-                헬로뭐 다 좋아합니다.
-              </ModalCmtRight>
-            </ModalCmt>
-
+            {props.is_comment ? 
+            props.comment_list.map((c, idx) => {
+              return <ModalCmt>
+                      <ProCircle src={c.profile_url} />
+                      <ModalCmtRight>
+                        <ModalAuthor>{c.user_name}</ModalAuthor>
+                            {c.comment}
+                      </ModalCmtRight>
+                    </ModalCmt>
+            })
+              : null
+          }
+            
           </ModalCmtBox>
           <ModalCmtInputBox>
             <ModalCmtInput type="text" placeholder="댓글달기..." onChange={selectComment} />
