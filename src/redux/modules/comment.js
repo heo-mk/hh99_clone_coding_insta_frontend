@@ -19,7 +19,7 @@ const deleteComment = createAction(DELETE_COMMENT, (comment) => ({comment}));
 const loading = createAction(LOADING, (comment) => ({comment}));
 
 const initialState = {
-  list: {},
+  list : {},
   is_loading: false,
 }
 
@@ -104,7 +104,6 @@ export default handleActions(
       draft.list[action.payload.post_id].unshift(action.payload.comment)
     }),
     [SET_COMMENT]: (state, action) => produce(state, (draft) => {
-      console.log(action.payload.comment_list)
       draft.list[action.payload.post_id] = action.payload.comment_list
     }), 
     [DELETE_COMMENT]: (state, action) => produce(state, (draft) => {

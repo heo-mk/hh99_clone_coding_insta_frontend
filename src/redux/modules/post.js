@@ -105,7 +105,7 @@ const getPostAX = () => {
           user_id: _post.userId,
         };
 
-        post_list.push(post);
+        post_list.unshift(post);
       })
       console.log(post_list);
 
