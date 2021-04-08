@@ -46,9 +46,11 @@ function App() {
   return(
     <ReactContainer>
       <ConnectedRouter history={history}>
-        <Route path="/signup" exact component={SignUp} />
-        <Route path="/" exact component={Login} />
-        {/* <Route exact component={NotFound}/> */}
+        <Switch>
+          <Route path="/signup" exact component={SignUp} />
+          <Route path="/" exact component={Login} />
+          <Route component={NotFound}/>
+        </Switch>
       </ConnectedRouter>
     </ReactContainer>
   )
