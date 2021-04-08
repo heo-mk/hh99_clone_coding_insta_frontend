@@ -31,9 +31,12 @@ const Post = (props) => {
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
+  const post_writer = useSelector((state) => state.post.list.user_id);
+  const is_me = useSelector((state) => state.user.user.user_id);
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
+
   const idx = props.like_id.findIndex((l) => l === user_info.user_id);
   const is_like = idx !== -1 ? true : false
 
@@ -72,6 +75,12 @@ const Post = (props) => {
     let post_id = props.id;
     dispatch(postActions.editLikeAX(post, post_id))
   }
+
+
+  console.log(comment_list);
+  console.log(post_writer);
+  console.log(is_me);
+  
 
   React.useEffect(() => {
     dispatch(commentActions.getCommentAX(props.id))
@@ -149,7 +158,10 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_name}</PostAuthor>
                 </PostHeaderLeft>
-                <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/>
+                {post_writer === is_me?
+                  <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> 
+                  : null}
+                {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
