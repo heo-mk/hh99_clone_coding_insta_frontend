@@ -18,18 +18,20 @@ const PostWrite = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview)
   const user_info = useSelector((state) => state.user.user)
-  const [contents, setContents] = React.useState()
-  const [is_editcancelmodal, setEditCancelModal] = useState();
-  const ok_submit = contents ? true : false
+  
   const post_list = useSelector((state) => state.post.list);
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
   const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
-
-
+  const [contents, setContents] = React.useState(_post ? _post.contents : "")
+  const ok_submit = contents ? true : false
 
   React.useEffect(() => {
-    dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+    if (is_edit){
+      dispatch(imageActions.setPreview(_post.post_image_url))
+    } else{
+      dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
+    }
   }, [])
 
 
@@ -61,12 +63,13 @@ const PostWrite = (props) => {
       return;
     }
 
-    let edit={
+    let post={
       contents: contents,
     }
-    console.log(edit)
-    dispatch(postActions.editPostAX(edit)) 
+    console.log(post)
+    dispatch(postActions.editPostAX(post)) 
   }
+
 
   return (
     <React.Fragment>
