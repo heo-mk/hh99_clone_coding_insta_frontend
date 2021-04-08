@@ -33,12 +33,16 @@ function App() {
       <ReactContainer>
         <Header/>
         <ConnectedRouter history={history}>
-          <Switch>
-            <Route path="/" exact component={PostList}/>
-            <Route path="/upload" exact component={PostWrite}/>
-            <Route path="/upload/:id" exact component={PostWrite}/>f
-            <Route component={NotFound}/>
-          </Switch>
+
+        <Switch>
+          <Route path="/" exact component={PostList}/>
+          <Route path="/upload" exact component={PostWrite}/>
+          <Route path="/upload/:id" exact component={PostWrite}/>
+          <Route exact component={NotFound}/>
+        </Switch>
+
+         
+
         </ConnectedRouter>
       </ReactContainer>
     );

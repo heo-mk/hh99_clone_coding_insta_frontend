@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import Upload from "../shared/Upload"
 
-import Header from "../components/Header"
+import {history} from "../redux/configureStore"
 
 import PublishIcon from '@material-ui/icons/Publish';
 import TextField from '@material-ui/core/TextField';
@@ -23,10 +23,17 @@ const PostWrite = (props) => {
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
   const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
-  const [contents, setContents] = React.useState(_post ? _post.contents : "")
+  const [contents, setContents] = React.useState(_post ? _post.content : "")
   const ok_submit = contents ? true : false
-
+  console.log(_post)
   React.useEffect(() => {
+    if (is_edit && !_post) {
+      console.log("포스트 정보가 없어요!");
+      history.goBack();
+
+      return;
+    }
+
     if (is_edit){
       dispatch(imageActions.setPreview(_post.post_image_url))
     } else{
@@ -66,8 +73,8 @@ const PostWrite = (props) => {
     let post={
       contents: contents,
     }
-    console.log(post)
-    dispatch(postActions.editPostAX(post)) 
+    console.log(post_id)
+    dispatch(postActions.editPostAX(post_id , post)) 
   }
 
 
@@ -95,6 +102,7 @@ const PostWrite = (props) => {
                 multiline
                 rows={6}
                 variant="outlined"
+                value={contents}
                 onChange = {changeContents}
               />
               {is_edit ? (
