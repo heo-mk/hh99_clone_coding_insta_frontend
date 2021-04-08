@@ -82,8 +82,6 @@ const SignUp = () => {
         ):(
           <SignupBtn style={{opacity: "0.3"}}>Sign up</SignupBtn>
         )}
-        
-        
       </SignupContainer>
     </React.Fragment>
   )

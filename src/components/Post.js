@@ -31,7 +31,6 @@ const Post = (props) => {
   const [ is_modal, setDetailModal ] = useState();
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
-  const post_writer = useSelector((state) => state.post.list.user_id);
   const is_me = useSelector((state) => state.user.user.user_id);
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
@@ -76,10 +75,6 @@ const Post = (props) => {
     dispatch(postActions.editLikeAX(post, post_id))
   }
 
-
-  console.log(comment_list);
-  console.log(post_writer);
-  console.log(is_me);
   
 
   React.useEffect(() => {
@@ -158,7 +153,7 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_name}</PostAuthor>
                 </PostHeaderLeft>
-                {post_writer === is_me?
+                {props.user_id === is_me?
                   <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> 
                   : null}
                 {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> */}
@@ -216,7 +211,7 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
-        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} />        
+        {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} user_info={user_info} />        
         : null}
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        
         : null}

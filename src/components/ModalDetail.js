@@ -21,7 +21,8 @@ const ModalDetail = (props) => {
     console.log(comments)
     let comment_info = {
       comment: comments,
-      user_name: '',
+      user_name: props.user_info.user_name,
+      profile_url: props.user_info.profile_url , 
     }
 
     dispatch(commentActions.addCommentAX(comment_info, props.id))

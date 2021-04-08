@@ -42,38 +42,12 @@ const initialState = {
 //   }
 // }
 
-const signupFB = (id, user_name, pwd) => {
-  return function (dispatch, getState) {
-    const _image = getState().image.profile_preview;
 
-    const _upload = storage
-      .ref(`images/${id}_${new Date().getTime()}`)
-      .putString(_image, "data_url");
-
-    _upload.then((snapshot) => {
-      snapshot.ref.getDownloadURL()
-      .then((url) => {
-        auth.createUserWithEmailAndPassword(id, pwd)
-        .then((user) => {
-        console.log(user);
-        auth.currentUser.updateProfile({
-          displayName: user_name,
-          photoURL: url,
-        })
-          history.push('/')
-      })        
-      }).catch((error) => {
-        console.log(error)
-        window.alert("회원가입이 정상적으로 이루워지지 않습니다.")
-      })
-    })
-  }
-}
 
 const loginFB = (id, pwd) => {
   return function (dispatch, getState){
     console.log("헬로")
-    auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then((res) => {
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
       auth
         .signInWithEmailAndPassword(id, pwd)
         .then((user) => {
@@ -118,6 +92,33 @@ const logoutFB = () => {
   }
 }
 
+const signupFB = (id, user_name, pwd) => {
+  return function (dispatch, getState) {
+    const _image = getState().image.profile_preview;
+
+    const _upload = storage
+      .ref(`images/${id}_${new Date().getTime()}`)
+      .putString(_image, "data_url");
+
+    _upload.then((snapshot) => {
+      snapshot.ref.getDownloadURL()
+      .then((url) => {
+        auth.createUserWithEmailAndPassword(id, pwd)
+        .then((user) => {
+        console.log(user);
+        auth.currentUser.updateProfile({
+          displayName: user_name,
+          photoURL: url,
+        })
+          history.push('/')
+      }).catch((error) => {
+        console.log(error)
+        window.alert("회원가입이 정상적으로 이루워지지 않습니다.")        
+      })
+      })
+    })
+  }
+}
 
 // const loginAX = (id, pwd) => {
 //   return function (dispatch){
