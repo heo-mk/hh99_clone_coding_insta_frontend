@@ -12,11 +12,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import SendIcon from '@material-ui/icons/Send';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
-import { UnfoldLessTwoTone } from "@material-ui/icons";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import Sample_img from '../shared/dragon.jpg';
+
 
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux"; 
