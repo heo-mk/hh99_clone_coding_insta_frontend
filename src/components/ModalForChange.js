@@ -1,3 +1,6 @@
+// 게시물 작성자와 로그인 한 사용자가 같으면
+// 게시물 우측상단의 ... 모양의 버튼이 보이게 하고
+// 그걸 누르면 게시물 수정/게시물 삭제가 뜨는 모달창
 import React from "react";
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
@@ -19,19 +22,24 @@ const ModalForChange = (props) => {
         <ExitBtn onClick={props.close}>
           <CloseIcon fontSize="large" />
         </ExitBtn>
-      </ExitContainer>  
+      </ExitContainer>
+      {/* 여기까지는 모달 외부와 우측 상단 x표를 클릭하면 모달창이 없어지게 하는 요소들  */}
       <ModalBox>
         <EditBox 
           onClick={(e) => {
+            // e.prevent..., e.stopPro.. 이것들로 이벤트 버블링을 막는다
             e.preventDefault();
             e.stopPropagation();
+            // 클릭하면 게시물 수정 페이지로 이동
             history.push(`/upload/${props.id}`)
             }}>게시물 수정</EditBox>
         <DeleteBox  
           onClick={(e) => {
+            // e.prevent..., e.stopPro.. 이것들로 이벤트 버블링을 막는다
             e.preventDefault();
             e.stopPropagation();
             console.log(props)
+            // 클릭하면 게시물 삭제
             dispatch(postActions.deletePostAX(props.id));
             }}>게시물 삭제</DeleteBox>
       </ModalBox>
@@ -76,6 +84,7 @@ const ModalBox = styled.div`
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /* 자식 속성의 div들이 세로로 정렬되게 하는 부분 */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -96,6 +105,7 @@ const EditBox = styled.div`
   height: 48px;
   color: black;
   font-weight: bold;
+  /* 내부 글씨들이 수직방향으로 가운데 정렬되게 하는 태그 */
   display: table;
   line-height: 48px;
   vertical-align: center;

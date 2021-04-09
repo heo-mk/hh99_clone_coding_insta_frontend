@@ -42,6 +42,7 @@ const SignUp = () => {
     //   window.alert("아이디, 패스워드, 닉네임을 모두 입력해주세요!");
     //   return;
     // }
+    // 사전 정의된 정규표현식으로 이메일 형식 체크
     if(!emailCheck(id)){
       window.alert('이메일 형식이 맞지 않습니다!');
       return;

@@ -32,7 +32,7 @@ const Post = (props) => {
   const [ is_changemodal, setChangeModal] = useState();
   const ok_submit = comments ? true : false
 
-  const is_me = useSelector((state) => state.user.user.user_id);
+  const is_me = useSelector((state) => state.user.user.user_id);  // 로그인한 사용자. 
   const user_info = useSelector((state) => state.user.user);
   const comment_list = useSelector((state) => state.comment.list[props.id])
   const is_comment = comment_list ? true : false
@@ -95,6 +95,7 @@ const Post = (props) => {
     dispatch(commentActions.getCommentAX(props.id))
   },[])
 
+  // 댓글, 모달창을 제어하는 함수들
   const selectComment = (e) => {
     console.log(e.target.value)
     setComments(e.target.value)
@@ -167,16 +168,18 @@ const Post = (props) => {
                     <ProfileCircle src={props.profile_image_url}/>
                     <PostAuthor>{props.user_name}</PostAuthor>
                 </PostHeaderLeft>
+                {/* 로그인한 사용자와 작성자가 같다면 수정/삭제 모달이 뜨게 하는 버튼이 보이게 한다  */}
                 {props.user_id === is_me?
                   <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> 
                   : null}
-                {/* <MoreHorizIcon height="14px" width="14px" cursor="pointer" onClick={openChangeModal}/> */}
             </PostHeader>
             <PostBody>
                 <PostImage src={props.post_image_url} onClick={openDetailModal} />
             </PostBody>
             <BottomIcons>
                 <ThreeIcons>
+                  {/* 좋아요를 누른다면 빨간색, 좋아요를 안 눌렀거나 취소하면 빈 하트
+                  좋아요를 누르면 좋아요 + 1, 좋아요 취소하면 좋아요 -1 */}
                   {is_like ? <FavoriteIcon padding-right="16px" cursor="pointer" color="secondary" onClick={dislikeSubmit} />
                   : <FavoriteBorderIcon padding-right="16px" cursor="pointer" onClick={likeSubmit} />
                   }                  
@@ -192,6 +195,8 @@ const Post = (props) => {
                     <Comment>{props.content}</Comment>
                 </AuthorCommentBox>
             </BottomAuthorCommentBox>
+            {/* 메인 페이지의 게시글의 댓글란 
+            댓글은 최대 2개만 보이게 해서 창이 넘치지 않게 한다 */}
             {is_comment ?  
             comment_list.map((c, idx) => {
               if(idx < 2){
@@ -225,6 +230,7 @@ const Post = (props) => {
             </CommentInputBox>
         </PostBox>
       </PostInner>
+        {/* 모든 요소들의 밖에서 상세페이지 모달, 수정/삭제 모달을 제어 */}
         {is_modal ? <ModalDetail close={closeDetailModal} {...props}  is_comment = {is_comment} comment_list={comment_list} user_info={user_info} deleteComment={deleteComment} is_me={is_me} openChangeModal={openChangeModal}  />        
         : null}
         {is_changemodal ? <ModalForChange close={closeChangeModal} {...props}/>        

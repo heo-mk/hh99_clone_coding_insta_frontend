@@ -21,11 +21,12 @@ const PostWrite = (props) => {
   
   const post_list = useSelector((state) => state.post.list);
   const post_id = props.match.params.id;
-  const is_edit = post_id ? true : false;
+  const is_edit = post_id ? true : false;  // 수정 중인지, 첫 작성인지 여부 판별
   const _post = is_edit? post_list.find((p) => p.id == post_id) : null;
   const [contents, setContents] = React.useState(_post ? _post.content : "")
   const ok_submit = contents ? true : false
   console.log(_post)
+  
   React.useEffect(() => {
     if (is_edit && !_post) {
       console.log("포스트 정보가 없어요!");
@@ -35,7 +36,7 @@ const PostWrite = (props) => {
     }
 
     if (is_edit){
-      dispatch(imageActions.setPreview(_post.post_image_url))
+      dispatch(imageActions.setPreview(_post.post_image_url)) // 페이지가 렌더링 되면서 기존 이미지 같이 렌더링
     } else{
       dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
     }
@@ -52,6 +53,7 @@ const PostWrite = (props) => {
     setContents(e.target.value)
   }
 
+  // 작성된 것을 리듀서-스토어에 디스패치해서 변경된 데이터를 본페이지에서 렌더링 되게 요청
   const addPost = () => {
     if(!contents){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")
@@ -64,6 +66,7 @@ const PostWrite = (props) => {
     dispatch(postActions.addPostAX(post))
   }
 
+  // 수정된 것을 리듀서-스토어에 디스패치해서 변경된 데이터를 본페이지에서 렌더링 되게 요청
   const editPost = () => {
     if(!contents){
       window.alert("😗빈칸을 채워주세요...ㅎㅎ")

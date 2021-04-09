@@ -23,6 +23,7 @@ const Login = () => {
     setPwd(e.target.value)
   }
 
+  // 사전에 정의된 정규표현식으로 이메일 형식 설정.
   const login = () => {
     if(!emailCheck(id)){
       window.alert('이메일 형식이 맞지 않습니다!');

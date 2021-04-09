@@ -203,6 +203,9 @@ const ModalCmtBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 480px;
+  /* 아래 태그는 댓글이 많으면 
+  스크롤로 아래 부분이 위로 올라가게 해서 
+  댓글이 보여지게 함 */
   overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;

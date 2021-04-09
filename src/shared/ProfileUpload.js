@@ -1,3 +1,4 @@
+// 프로필 사진 업로드 하는 부분.
 import React from 'react'
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';

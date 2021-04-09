@@ -1,3 +1,4 @@
+// 정의된 api url이 아닌 경우 보이게 하는 NotFound 페이지
 import React from "react";
 import styled from "styled-components";
 import notFoundInsta from "../shared/notFoundInsta.jpg";
@@ -30,8 +31,8 @@ const NonExist = styled.img`
   height: 400px;
   font-size: 50px;
   border-radius: 10px;
-  /* background-color: #fff; */
   background-color: transparent;
+  /* 이미지를 가운데로 정렬시키는 부분 */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -42,6 +43,7 @@ const NonExist = styled.img`
   align-items: center;
   z-index: 10;
 
+  /* 화면이 614px 이하가 되면 이미지가 절반으로 축소되는 반응형 */
   @media (max-width: 614px){
     width: 50%;
     height: auto;

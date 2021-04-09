@@ -1,3 +1,4 @@
+// 페이지 상단에 position : fixed로 고정되어 어느 페이지에서든 보이는 헤더.
 import React from "react"
 import styled from "styled-components"
 import ImgTitle from "../instagramLogo.png"
@@ -52,6 +53,7 @@ const HeaderInnerContainer = styled.div`
   width: 975px;
   height: 100%;
   padding: 0 20px 0 20px;
+  /* 페이지가 축소 되면 오른쪽 부분이 잘려서 보이지 않는 것을 막는 태그 */
   box-sizing: border-box;
   @media (max-width: 975px){
     width: 100%;
