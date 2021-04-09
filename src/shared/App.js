@@ -40,6 +40,7 @@ function App() {
           <Route path="/" exact component={PostList}/>
           <Route path="/upload" exact component={PostWrite}/>
           <Route path="/upload/:id" exact component={PostWrite}/>
+          {/* NotFound 페이지 */}
           <Route exact component={NotFound}/>
         </Switch>
 
