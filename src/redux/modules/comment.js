@@ -23,6 +23,9 @@ const initialState = {
   is_loading: false,
 }
 
+// addCommentAX는 댓글과 댓글 단 사람의 정보 해당 게시글 정보를 담아서 서버에 보내는 작업을 합니다.
+// 그리고 리덕스 store에 그 정보들을 저장해서 바로 화면으로 새로적은 댓글이 보이게 합니다. 
+
 const addCommentAX = (comment, post_id) => {
   return function (dispatch, getState) {
     console.log(comment)
@@ -48,6 +51,9 @@ const addCommentAX = (comment, post_id) => {
   }
 }
 
+// 화면을 리로드를 했을 때 리덕스 store에 있는 정보들이 다 날아가기 때문에 
+// DB에 저장해뒀던 해당 게시물의 댓글 정보들을 response로 받아서 다시 리덕스 store에 저장합니다.
+
 const getCommentAX = (post_id = null) => {
   return function (dispatch) {
     if (!post_id){
@@ -59,7 +65,6 @@ const getCommentAX = (post_id = null) => {
       console.log(response)
 
       let comment_list = []
-
       response.data.forEach((_post) => {
         let comment = {
           comment: _post.comment,
@@ -68,11 +73,8 @@ const getCommentAX = (post_id = null) => {
           comment_dt: _post.commentDt,
           id: _post.id,
         }
-
         comment_list.unshift(comment)
-      })
-
-      
+      })      
       console.log(comment_list)
       dispatch(setComment(comment_list, post_id))
     }).catch((error) => {
@@ -80,6 +82,9 @@ const getCommentAX = (post_id = null) => {
     })
   }
 }
+
+// 해당 댓글 id값을 서버에 보내서 삭제를 시킵니다.
+// 리덕스 store에서도 같은 id값을 가진것을 찾아서 삭제 시킵니다.
 
 const deleteCommentAX = (id, post_id) => {
   return function (dispatch, getState){
@@ -96,6 +101,8 @@ const deleteCommentAX = (id, post_id) => {
 export default handleActions(
   {
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
+      //  draft.list[action.payload.post_id] 안에 아무것도 없는 상태이면 배열도 없는 상태여서
+      // unshift도 되지 않습니다. 그래서 아무것도 없는 경우일 때를 따로 설정했습니다.
       if(!draft.list[action.payload.post_id]){
         draft.list[action.payload.post_id] = [action.payload.comment]
         return

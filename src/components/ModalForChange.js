@@ -7,7 +7,7 @@ import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux"; 
 
 
-// onClick={props.close} onClick={props.close}
+
 const ModalForChange = (props) => {
   const dispatch = useDispatch();
   

@@ -4,10 +4,9 @@ import { storage } from "../../shared/firebase"
 import axios from 'axios';
 import { actionCreators as imageActions } from "./image";
 import { history } from "../configureStore"
-
 import "moment";
 import moment from "moment";
-import { RepeatOneSharp } from "@material-ui/icons";
+
 
 
 const SET_POST = "SET_POST";
@@ -43,6 +42,11 @@ const initialPost = {
   like_cnt: 0,
   like_id: [],
 }
+
+// 작성한 게시글을 서버에 보내는 작업을 합니다. 
+// 첨부한 사진은 firebase Storage에다가 저장을 하고 url만 받아와서 서버에 보냈습니다.
+// 게시글 작성자 데이터와 게시글 내용을 서버에 보냈습니다.
+// 그 후에 response로 게시물 id를 받아서 리덕스 스토어에 게시물 데이터와 같이 저장했습니다.
 
 const addPostAX = (post) => {
   return function (dispatch, getState){
@@ -81,7 +85,7 @@ const addPostAX = (post) => {
           contents: post.contents,
           insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
           like_cnt: 0,
-          like_id: ['a'],
+          like_id: [],
         }
         dispatch(addPost(post_list))
         dispatch(imageActions.setPreview("http://via.placeholder.com/400x300"))
@@ -95,6 +99,10 @@ const addPostAX = (post) => {
   }
 }
 
+// DB에 저장되어있는 게시물들을 다 가져옵니다.
+// reponse로 받은 게시물 데이터를 하나씩 .foEach를 써서 분류하고
+// 리덕스 store에 저장했습니다.
+
 const getPostAX = () => {
   return function (dispatch, getState){
     axios.get("http://15.164.217.16/api/contents")
@@ -106,7 +114,6 @@ const getPostAX = () => {
 
       res.data.forEach((_post) => {   
         
-        // let _post = re.data;
         let post = {
           id: _post.id,
           content: _post.contents,
@@ -131,6 +138,10 @@ const getPostAX = () => {
   }
 }
 
+// 게시물 데이터를 수정할 때 게시물 이미지도 수정이 되었을 때와 되지 않을 때를 나눴습니다.
+// 이미지가 수정되지 않았으면 기존 이미지 url과 수정된 게시글을 업로드합니다.
+// 이미지가 수정되었으면 수정된 이미지를 firebase Storage에 저장을하고 url을 받아와서 서버에 보내줍니다.
+// 수정된 게시글 data는 리덕스 store에도 저장을 합니다.
 const editPostAX = (id, post) => {
   return function (dispatch, getState){
     if(!id) {
@@ -184,6 +195,7 @@ const editPostAX = (id, post) => {
   }
 }
 
+
 const editLikeAX = (post, post_id) => {
   return function (dispatch) {
     console.log(post, post_id)
@@ -203,6 +215,8 @@ const editLikeAX = (post, post_id) => {
 
 }
 
+// 게시글 id값을 보내면 서버에서 db에 저장된 해당 id를 가진 게시물을 삭제합니다.
+// 그리고 리덕스 store에서도 저장된 게시물을 삭제해서 바로 삭제된것이 적용되게 합니다.
 
 const deletePostAX = (id) => {
   return function (dispatch, getState){
