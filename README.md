@@ -51,6 +51,7 @@
 <img width="500" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F2i9wy%2Fbtq2hfo5jo0%2F5IpjroUBI4CCQmGHESRQo1%2Fimg.png">
 
 <br>
+<br>
 
 ```
 function App() {
@@ -124,6 +125,7 @@ function App() {
 
 <img width="500" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0oSrL%2Fbtq2niqZOwf%2F52dGYtgL06ro1b8HScOk81%2Fimg.png">
 
+<br>
 <br>
 
 게시물 CRUD 구현한 모듈 코드입니다.
@@ -321,6 +323,7 @@ const deletePostAX = (id) => {
 <img width="500" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FWmPe2%2Fbtq2iEhge4E%2F7x3eaVNOb2KasPpKfCMba0%2Fimg.png">
 
 <br>
+<br>
 
 댓글 CRD 구현한 모듈 코드입니다.
 
@@ -440,6 +443,7 @@ export default handleActions(
 <summary>여기를 눌러주세요</summary>
 <div markdown="1">
 
+<br>
 <br>
 
 좋아요 기능구현한 모듈 코드입니다.
