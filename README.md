@@ -1,6 +1,6 @@
 # Clone\_Stagram
 
-<img width="500" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F22sLw%2Fbtq2hf3Edgh%2FCgPecfIkvKIUHglMId5xcK%2Fimg.png">
+<img width="300" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F22sLw%2Fbtq2hf3Edgh%2FCgPecfIkvKIUHglMId5xcK%2Fimg.png">
 
 <br>
 
