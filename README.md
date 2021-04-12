@@ -1,4 +1,5 @@
 # hh99_clone_coding
+![unnamed (1)](https://user-images.githubusercontent.com/79818840/114365531-85234880-9bb5-11eb-844e-5909d9f38d47.jpg)
 ## 인스타그램 클론 코딩 프로젝트
 ### 개요
 #### 프로젝트 주제: 클론 코딩
