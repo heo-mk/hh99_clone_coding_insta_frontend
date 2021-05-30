@@ -64,7 +64,7 @@ function App() {
       dispatch(userActions.loginCheckFB())
     }
   },[])
-	//로그인 한 상태에서만 게시물들을 보고 작성할 수 있게 했습니다.
+	//로그인 한 상태에서만 게시물들을 보고 작성할 수 있게 함.
   if (is_login){
     return (
       <ReactContainer>
@@ -106,7 +106,7 @@ function App() {
 
 ### **2\. 게시물 C.R.U.D.**
 
-- 게시물 작성, 보여주기, 수정, 삭제 기능들을 **axios**를 이용해서 백엔드와 데이터를 주고 받으면서 구현  
+- 게시물 작성, 보여주기, 수정, 삭제 기능들을 **axios**를 이용해서 백엔드와 데이터를 주고 받으면서 구현.  
 - 게시물을 작성할 때는 유저정보와 게시물 정보를 같이 넣어서 서버에 보내줌. 
 - 유저정보는 게시물을 보여줄 때, 수정, 삭제할 때 필요. 
 - 해당 게시물을 작성한 유저에게만 수정 삭제하는 권한 부여.
@@ -133,7 +133,7 @@ function App() {
 게시물 CRUD 구현한 모듈 코드입니다.
 
 ```
-// 작성한 게시글을 서버에 보내는 작업을 합니다. 
+// 작성한 게시글을 서버에 보내는 작업. 
 // 첨부한 사진은 firebase Storage에다가 저장을 하고 url만 받아와서 서버에 보냄.
 // 게시글 작성자 데이터와 게시글 내용을 서버에 보냄.
 // 그 후에 response로 게시물 id를 받아서 리덕스 스토어에 게시물 데이터와 같이 저장함.
@@ -285,8 +285,8 @@ const editPostAX = (id, post) => {
   }
 }
 
-// 게시글 id값을 보내면 서버에서 db에 저장된 해당 id를 가진 게시물을 삭제합니다.
-// 그리고 리덕스 store에서도 저장된 게시물을 삭제해서 바로 삭제된것이 적용되게 합니다.
+// 게시글 id값을 보내면 서버에서 db에 저장된 해당 id를 가진 게시물을 삭제함.
+// 그리고 리덕스 store에서도 저장된 게시물을 삭제해서 바로 삭제된것이 적용.
 
 const deletePostAX = (id) => {
   return function (dispatch, getState){
@@ -310,7 +310,11 @@ const deletePostAX = (id) => {
 
 ### **3\. 댓글 C.R.D.**
 
-댓글 작성, 보여주기, 삭제 기능을 구현했습니다. 수정 기능까지 해야될 필요성을 못느꼈기에 수정기능은 구현하지 않았습니다. 댓글 데이터에는 게시물 고유 아이디를 같이 넣어서 어느 게시물 댓글인지 파악했습니다. 게시물에 댓글이 점점 많아지면 게시물의 크기가 너무 커지기 때문에 **메인 페이지에서는 최신 댓글 2개만 보이게 했고, 나머지 댓글들은 게시물 디테일 모달을 만들어서 게시물 사진을 클릭했을 때 모달로 나오게 구현했습니다**.
+- 댓글 작성, 보여주기, 삭제 기능을 구현함. 
+- 수정 기능까지 해야될 필요성을 못느꼈기에 수정기능은 구현하지 않음. 
+- 댓글 데이터에는 게시물 고유 아이디를 같이 넣어서 어느 게시물 댓글인지 파악함. 
+- 게시물에 댓글이 점점 많아지면 게시물의 크기가 너무 커지므로
+-  **메인 페이지에서는 최신 댓글 2개만 보이게 했고, 나머지 댓글들은 게시물 디테일 모달을 만들어서 게시물 사진을 클릭했을 때 모달로 나오게 구현함.**.
 
 <details>
 <summary>여기를 눌러주세요</summary>
@@ -327,11 +331,11 @@ const deletePostAX = (id) => {
 <br>
 <br>
 
-댓글 CRD 구현한 모듈 코드입니다.
+댓글 CRD 구현한 모듈 코드.
 
 ```
-// addCommentAX는 댓글과 댓글 단 사람의 정보 해당 게시글 정보를 담아서 서버에 보내는 작업을 합니다.
-// 그리고 리덕스 store에 그 정보들을 저장해서 바로 화면으로 새로적은 댓글이 보이게 합니다. 
+// addCommentAX는 댓글과 댓글 단 사람의 정보 해당 게시글 정보를 담아서 서버에 보내는 작업을 함.
+// 그리고 리덕스 store에 그 정보들을 저장해서 바로 화면으로 새로적은 댓글이 보이게 함. 
 
 const addCommentAX = (comment, post_id) => {
   return function (dispatch, getState) {
@@ -390,8 +394,8 @@ const getCommentAX = (post_id = null) => {
   }
 }
 
-// 해당 댓글 id값을 서버에 보내서 삭제를 시킵니다.
-// 리덕스 store에서도 같은 id값을 가진것을 찾아서 삭제 시킵니다.
+// 해당 댓글 id값을 서버에 보내서 삭제시킴.
+// 리덕스 store에서도 같은 id값을 가진것을 찾아서 삭제함.
 
 const deleteCommentAX = (id, post_id) => {
   return function (dispatch, getState){
@@ -409,7 +413,7 @@ export default handleActions(
   {
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
       //  draft.list[action.payload.post_id] 안에 아무것도 없는 상태이면 배열도 없는 상태여서
-      // unshift도 되지 않습니다. 그래서 아무것도 없는 경우일 때를 따로 설정했습니다.
+      // unshift도 되지 않습니다. 그래서 아무것도 없는 경우일 때를 따로 설정함.
       if(!draft.list[action.payload.post_id]){
         draft.list[action.payload.post_id] = [action.payload.comment]
         return
@@ -439,7 +443,8 @@ export default handleActions(
 
 ### **4\. 게시물  좋아요 기능구현**
 
-게시물 데이터에 좋아요 숫자와 좋아요를 한 유저의 아이디를 저장했습니다. 게시물 정보를 업데이트하는 형식으로 좋아요 기능을 구현했습니다.
+- 게시물 데이터에 좋아요 숫자와 좋아요를 한 유저의 아이디를 저장함 
+- 게시물 정보를 업데이트하는 형식으로 좋아요 기능을 구현했습니다.
 
 <details>
 <summary>여기를 눌러주세요</summary>
@@ -448,10 +453,10 @@ export default handleActions(
 <br>
 <br>
 
-좋아요 기능구현한 모듈 코드입니다.
+좋아요 기능구현한 모듈 코드.
 
 ```
-// 좋아요 추가 삭제를 이 미들웨어하나로 구현했습니다.
+// 좋아요 추가 삭제를 이 미들웨어하나로 구현함.
 const editLikeAX = (post, post_id) => {
   return function (dispatch) {
     console.log(post, post_id)
@@ -471,17 +476,18 @@ const editLikeAX = (post, post_id) => {
 
 }
 
-// 수정한 좋아요 데이터를 리덕스 스토어에 저장했습니다.
+// 수정한 좋아요 데이터를 리덕스 스토어에 저장함.
 [EDIT_LIKE]: (state, action) => produce(state, (draft) => {
       let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
       draft.list[idx] = { ...draft.list[idx], ...action.payload.post }
     })
 ```
 
-좋아요 기능을 구현한 Component 코드입니다. 서버에서 게시물 데이터를 다 보내지 않으면 서버 오류가 걸린다고 해서 게시물 데이터를 다 담아서 보내줬습니다.
+좋아요 기능을 구현한 Component 코드. 
+서버에서 게시물 데이터를 다 보내지 않으면 서버 오류가 걸린다고 해서 게시물 데이터를 다 담아서 보냄.
 
 ```
-//좋아요를 추가하는 함수입니다.
+//좋아요를 추가하는 함수.
 const likeSubmit = () => {
     if(!is_login){
       window.alert("😀로그인 해야 할 수 있어요!")
