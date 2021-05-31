@@ -3,9 +3,9 @@
 <img width="300" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F22sLw%2Fbtq2hf3Edgh%2FCgPecfIkvKIUHglMId5xcK%2Fimg.png">
 
 <br>
-
+```
 항해99 6주차는 자신이 배운 주특기를 가지고 **실제적으로 운영되는 웹사이트를 골라서 똑같이 기능을 구현하고 뷰를 완성하는 클론코딩을 하는 시간이였습니다.** 저희조는 인스타그램을 클론코딩하기로 했고, 인스타그램에서 게시물, 댓글 CRUD를 구현하고 로그인 회원가입, 게시물 좋아요 기능을 구현했습니다. 그리고 프론트와 백엔드가 처음으로 합을 맞춰보는 시간이였습니다.
-
+```
 <br>
 
 **유투브 링크:** [CloneStagram](https://www.youtube.com/watch?v=gjDXHQp5LO8&t=6s)
