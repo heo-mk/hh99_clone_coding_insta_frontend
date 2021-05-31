@@ -8,7 +8,7 @@
 
 <br>
 
-**사이트 링크:** [CloneStagram](http://clonestagram.shop/)
+**유투브 링크:** [CloneStagram](https://www.youtube.com/watch?v=gjDXHQp5LO8&t=6s)
 
 <br>
 
